@@ -12,7 +12,7 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 // C functions for higher level control
 //==============================================
 void attacker_read(uint16_t start_addr, uint16_t end_addr);
-void get_struct_val(struct SancusModule* module_address, uint16_t ts, uint16_t te, uint16_t ds, uint16_t de);
+void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t* te, uint16_t* ds, uint16_t* de);
 
 
 

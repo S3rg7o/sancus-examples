@@ -72,7 +72,7 @@ void attacker_read(uint16_t start_addr, uint16_t end_addr)
 }
 
 
-void get_struct_val(struct SancusModule* module_address, uint16_t ts, uint16_t te, uint16_t ds, uint16_t de)
+void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t* te, uint16_t* ds, uint16_t* de)
 {
 	uint16_t config_register;
 	uint16_t sm_struct_val[7];
@@ -90,10 +90,10 @@ void get_struct_val(struct SancusModule* module_address, uint16_t ts, uint16_t t
 	
 	// Assign output values
 	char stringa[11];
-	ts = sm_struct_val[3];  
-	te = sm_struct_val[4];
-	ds = sm_struct_val[5];
-	de = sm_struct_val[6];
+	*ts = sm_struct_val[3];  
+	*te = sm_struct_val[4];
+	*ds = sm_struct_val[5];
+	*de = sm_struct_val[6];
 	/*for(counter=0; counter<7; counter++)
 	{
 		switch (counter)
