@@ -1,6 +1,6 @@
 ## Sancus DMA interface support - Sergio
 
-The local version of Makefile has been extended with the execution of "file_updater.sh", a bash script that copies the new Sancus files (DMA interface) into the installation folder on my local machine, so that it's possible to run the program on the new core. Very likely insuccess when it comes to Trevis compilation. 
+The execution of "file_updater.sh" bash script copies the new Sancus files (DMA interface) into the installation folder on my local machine, so that it's possible to run the program on the new core. 
 Since Trevis re-installs Sancus every time, it makes more sense to have a modified [sancus-main](https://github.com/S3rg7o/sancus-main) and that installs the Sancus version with DMA support.
 
 
