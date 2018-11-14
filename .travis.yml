@@ -15,6 +15,7 @@ before_install:
   # (Sergio)
   - cd ../..
   - git clone https://github.com/S3rg7o/sancus-core 
+  - cd sancus-main/docker
   
 script:
   - docker run -t sancus-devel /bin/sh -c \
@@ -23,6 +24,7 @@ script:
   - docker ps -a
 
 env:
+  - TARGET=sensor-reader-attack SECURITY=64
   - TARGET=hello-world          SECURITY=64
   - TARGET=hello-world          SECURITY=128
   - TARGET=sensor-reader        SECURITY=64
