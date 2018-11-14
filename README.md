@@ -42,6 +42,6 @@ Alternatively, to upload the example to an FPGA using `sancus-loader`:
 $ make load
 ```
 
-# Note 
+# Note (Sergio)
 The sensor-reader-attack uses the Sancus core supporting DMA interface, therefore before the simulation starts it is required to update core components with [Sancus DMA-supporting core](https://github.com/S3rg7o/sancus-core/tree/master/core/rtl/verilog).
 Hence, specific files are copies into sancus-core main folder on travis, and then the simulation starts. 
