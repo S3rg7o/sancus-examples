@@ -6,3 +6,4 @@
 *.fst
 *.fst.*
 *.out
+./sensor-reader-attack/Makefile
