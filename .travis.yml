@@ -11,12 +11,9 @@ language: c
 
 before_install:
   - git clone https://github.com/sancus-pma/sancus-main.git
+  - git clone https://github.com/S3rg7o/sancus-core #Sergio
   - cd sancus-main/docker && make build SANCUS_SECURITY=$SECURITY 
-  # (Sergio)
-  - cd ../..
-  - git clone https://github.com/S3rg7o/sancus-core 
-  - cd sancus-main/docker
-  
+ 
 script:
   - docker run -t sancus-devel /bin/sh -c \
         "cd /sancus/sancus-examples && git checkout $TRAVIS_BRANCH &&
