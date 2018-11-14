@@ -123,15 +123,4 @@ void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t*
 		printf("[attacker] %s \t: 0x%.4x \n",stringa,sm_struct_val[counter]);
 	}  	*/	  
 }
-
-
-
-
-
-
-
-
-
-
-
-       
+      
