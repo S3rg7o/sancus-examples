@@ -22,10 +22,10 @@ script:
 
 env:
   - TARGET=sensor-reader-attack SECURITY=64
-  - TARGET=hello-world          SECURITY=64
-  - TARGET=hello-world          SECURITY=128
-  - TARGET=sensor-reader        SECURITY=64
-  - TARGET=arithmetic           SECURITY=64
-  - TARGET=fileio               SECURITY=64
-  - TARGET=timer                SECURITY=64
-  - TARGET=sensor-reader-attack SECURITY=64
+  #- TARGET=hello-world          SECURITY=64
+  #- TARGET=hello-world          SECURITY=128
+  #- TARGET=sensor-reader        SECURITY=64
+  #- TARGET=arithmetic           SECURITY=64
+  #- TARGET=fileio               SECURITY=64
+  #- TARGET=timer                SECURITY=64
+  #- TARGET=sensor-reader-attack SECURITY=64
