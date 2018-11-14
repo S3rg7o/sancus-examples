@@ -16,7 +16,6 @@ The following programs showcase the security properties offered by a Sancus proc
 | Confidential deployment   | [hello-world](hello-world)     | SM text section is transparently encrypted at build time.       |
 | Illegal Read Access       | [reader-attack](sensor-reader-attack) | SM private sections are read even with protection enables.      |
 
-| Illegal Read Access       | [sensor-reader-attack](sensor-reader-attack) | SM private sections are read even with protection enables |
 
 Building upon the above primitives, compiler support has been implemented for the following additional features.
 
