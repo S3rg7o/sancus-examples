@@ -24,7 +24,7 @@ load: $(TARGET)
 sim: $(TARGET)
 	unbuffer $(SANCUS_SIM) $(SIMFLAGS) $< | tee sim.out
 	./unwrap.py $(READER_SM_KEY) sim.out
-	./file_updater.sh
+	
 
 clean:
 	$(RM) $(TARGET) $(TARGET_NO_MAC) $(OBJECTS)

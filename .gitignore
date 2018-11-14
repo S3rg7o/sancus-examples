@@ -1,3 +1,4 @@
+/sensor-reader-attack/Makefile
 *.swp
 *.o
 *.elf
@@ -6,4 +7,3 @@
 *.fst
 *.fst.*
 *.out
-./sensor-reader-attack/Makefile
