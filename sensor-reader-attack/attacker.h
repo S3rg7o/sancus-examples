@@ -6,29 +6,19 @@ void attacker_read(struct SancusModule* address)
 {
 	uint16_t config_register;
 	uint16_t num_of_words = 7;
-	
-	uint16_t  sm_id = 0;
-	uint16_t  vendor_id =0;
-	uint16_t* name=0;
-	uint16_t* text_start = 0;
-	uint16_t* text_end = 0;
-	uint16_t* data_start = 0;
-	uint16_t* data_end = 0;
-	uint16_t* tmp_var = 0;
-	
 	uint16_t sm_struct_val[7];
+	
 	int counter = 0;
-		
-	// Op-codes for the DMA device
+	uint16_t* tmp_var = 0;	
+	
+	// DMA device's op-codes 
 	const uint16_t WRITE_OP       = 0x0001;
 	const uint16_t END_WRITE      = 0x8000;
 	const uint16_t READ_OP        = 0x0005;
 	const uint16_t END_READ       = 0x8004;
 	const uint16_t READ_OP_ACK    = 0x001D;
 	const uint16_t WAIT_ACK_READ  = 0x200D;
-    const uint16_t END_READ_ACK   = 0xA00C;
-
-	
+    const uint16_t END_READ_ACK   = 0xA00C;	
 
 	asm(" ; Define memory addresses  \n\t"
 		".equ START_ADDR_REG , 0x0100 \n\t"

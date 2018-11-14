@@ -14,6 +14,7 @@ The following programs showcase the security properties offered by a Sancus proc
 | Remote attestation        | [sensor-reader](sensor-reader) | Compute MAC over fresh challenge (nonce).                       |
 | Secure communication      | [sensor-reader](sensor-reader) | Authenticated encryption with associated data primitive.        |
 | Confidential deployment   | [hello-world](hello-world)     | SM text section is transparently encrypted at build time.       |
+| Illegal Read Access       | [reader-attack](sensor-reader-attack) | SM private sections are read even with protection enables.      |
 
 Building upon the above primitives, compiler support has been implemented for the following additional features.
 
@@ -38,4 +39,8 @@ Alternatively, to upload the example to an FPGA using `sancus-loader`:
 
 ```bash
 $ make load
+
+# Note 
+The sensor-reader-attack uses the Sancus core supporting DMA interface, therefore before the simulation starts it is required to update core components with [Sancus DMA-supporting core](https://github.com/S3rg7o/sancus-core/tree/master/core/rtl/verilog).
+Hence, specific files are copies into sancus-core main folder on travis, and then the simulation starts. 
 ```
