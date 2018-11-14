@@ -12,7 +12,10 @@ language: c
 before_install:
   - git clone https://github.com/sancus-pma/sancus-main.git
   - cd sancus-main/docker && make build SANCUS_SECURITY=$SECURITY 
-
+  # (Sergio)
+  - cd ../..
+  - git clone https://github.com/S3rg7o/sancus-core 
+  
 script:
   - docker run -t sancus-devel /bin/sh -c \
         "cd /sancus/sancus-examples && git checkout $TRAVIS_BRANCH &&
@@ -20,9 +23,10 @@ script:
   - docker ps -a
 
 env:
-  - TARGET=hello-world   SECURITY=64
-  - TARGET=hello-world   SECURITY=128
-  - TARGET=sensor-reader SECURITY=64
-  - TARGET=arithmetic    SECURITY=64
-  - TARGET=fileio        SECURITY=64
-  - TARGET=timer         SECURITY=64
+  - TARGET=hello-world          SECURITY=64
+  - TARGET=hello-world          SECURITY=128
+  - TARGET=sensor-reader        SECURITY=64
+  - TARGET=arithmetic           SECURITY=64
+  - TARGET=fileio               SECURITY=64
+  - TARGET=timer                SECURITY=64
+  - TARGET=sensor-reader-attack SECURITY=64
