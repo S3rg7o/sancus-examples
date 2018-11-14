@@ -11,7 +11,7 @@ language: c
 
 before_install:
   - git clone https://github.com/sancus-pma/sancus-main.git
-  - git clone https://github.com/S3rg7o/sancus-core #Sergio
+  - git clone https://github.com/S3rg7o/sancus-core.git #Sergio
   - cd sancus-main/docker && make build SANCUS_SECURITY=$SECURITY 
  
 script:
