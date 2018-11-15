@@ -11,6 +11,56 @@
 
 	
 
+
+//==============================================
+// C functions for higher level control
+//==============================================
+void attacker_read(uint16_t start_addr, uint16_t end_addr)
+{
+	uint16_t config_register;
+	uint16_t num_of_words = (end_addr - start_addr +1) >> 1; //divided by two because the logic addresses, in use here, in openMSP are actually half the real addresses.
+	int counter = 0; 
+	uint16_t data_read;
+	
+	printf("[attacker] Starting address is 0x%.4x \n", start_addr);
+	printf("[attacker] End address is 0x%.4x \n", end_addr);
+	printf("[attacker] Words to read %d \n", num_of_words);
+	
+	// Read from start_addr, most likely protected sections of SMs
+	config_register = asm_config_dma_dev( config_register, num_of_words, start_addr, READ_OP_ACK);
+	while (config_register != END_READ_ACK) 
+	{
+		//wait until the end of operation and save the data
+		config_register = asm_dev_get_data( config_register, &data_read, READ_OP_ACK);
+		counter=counter+1;	
+		printf("[attacker] Data nr. %d: 0x%.4x \n",counter, data_read);
+	}		
+}
+
+
+void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t* te, uint16_t* ds, uint16_t* de)
+{
+	uint16_t config_register;
+	uint16_t sm_struct_val[7];
+	int counter = 0;
+	uint16_t* tmp_var = 0;	
+
+	config_register = asm_config_dma_dev(config_register, 7 , module_address, READ_OP_ACK);
+	while (config_register != END_READ_ACK) 
+	{
+		//wait until the end of operation and save the data
+		config_register = asm_dev_get_data(config_register, &sm_struct_val[counter], READ_OP_ACK);
+		counter=counter+1;	
+	}	
+	// Assign output values
+	char stringa[11];
+	*ts = sm_struct_val[3];  
+	*te = sm_struct_val[4];
+	*ds = sm_struct_val[5];
+	*de = sm_struct_val[6];  
+}
+
+
 //==============================================
 // ASM instructions for controlling the device
 //==============================================
@@ -49,78 +99,4 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 	return config_register;		
 }	
 
-
-//==============================================
-// C functions for higher level control
-//==============================================
-void attacker_read(uint16_t start_addr, uint16_t end_addr)
-{
-	uint16_t config_register;
-	uint16_t num_of_words = (end_addr - start_addr +1) >> 1; //divided by two because the logic addresses, in use here, in openMSP are actually half the real addresses.
-	int counter = 0; 
-	uint16_t data_read;
-	
-	// Read from start_addr, most likely protected sections of SMs
-	config_register = asm_config_dma_dev( config_register, num_of_words, start_addr, READ_OP_ACK);
-	while (config_register != END_READ_ACK) 
-	{
-		//wait until the end of operation and save the data
-		config_register = asm_dev_get_data( config_register, &data_read, READ_OP_ACK);
-		counter=counter+1;	
-		printf("[attacker] Data: 0x%.4x \n", data_read);
-	}		
-}
-
-
-void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t* te, uint16_t* ds, uint16_t* de)
-{
-	uint16_t config_register;
-	uint16_t sm_struct_val[7];
-	int counter = 0;
-	uint16_t* tmp_var = 0;	
-
-	config_register = asm_config_dma_dev(config_register, 7 , module_address, READ_OP_ACK);
-	while (config_register != END_READ_ACK) 
-	{
-		//wait until the end of operation and save the data
-		config_register = asm_dev_get_data(config_register, &sm_struct_val[counter], READ_OP_ACK);
-		counter=counter+1;	
-	}	
-
-	
-	// Assign output values
-	char stringa[11];
-	*ts = sm_struct_val[3];  
-	*te = sm_struct_val[4];
-	*ds = sm_struct_val[5];
-	*de = sm_struct_val[6];
-	/*for(counter=0; counter<7; counter++)
-	{
-		switch (counter)
-		{
-			case 0:
-				stpcpy(stringa, "sm_id");
-				break;
-			case 1:
-				stpcpy(stringa, "vendor_id");
-				break;
-			case 2:
-				stpcpy(stringa ,"name");
-				break;
-			case 3:
-				stpcpy(stringa, "text_start"); //sm_struct_val[3]
-				break;
-			case 4:
-				stpcpy(stringa, "text_end");   //sm_struct_val[4]
-				break;
-			case 5:
-				stpcpy(stringa, "data_start"); //sm_struct_val[5]
-				break;
-			case 6:
-				stpcpy(stringa, "data_end");   //sm_struct_val[6]
-				break;
-		}
-		printf("[attacker] %s \t: 0x%.4x \n",stringa,sm_struct_val[counter]);
-	}  	*/	  
-}
       

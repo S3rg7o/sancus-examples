@@ -34,13 +34,13 @@ int main()
     pr_info("starting dma illegal access...");
     get_struct_val(&reader, &ts, &te, &ds, &de);
     pr_info("protected section addresses:");
-    printf("[attacker] %s \t: 0x%.4x \n","text start",ts);
-    printf("[attacker] %s \t: 0x%.4x \n","text end"  ,te);
-    printf("[attacker] %s \t: 0x%.4x \n","data start",ds);
-    printf("[attacker] %s \t: 0x%.4x \n","data end"  ,de);
+    printf("%s \t: 0x%.4x \n","text start",ts);
+    printf("%s \t: 0x%.4x \n","text end"  ,te);
+    printf("%s \t: 0x%.4x \n","data start",ds);
+    printf("%s \t: 0x%.4x \n","data end"  ,de);
     pr_info("start reading into...");
-    printf("[attacker] %s \t: 0x%.4x \n","Start addr.",ds);
-    printf("[attacker] %s \t: 0x%.4x \n","End addr."  ,de);
+    printf("%s \t: 0x%.4x \n","Start addr.",ds);
+    printf("%s \t: 0x%.4x \n","End addr."  ,de);
   	attacker_read(ts, te);
     
     EXIT();
