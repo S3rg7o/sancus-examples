@@ -53,8 +53,6 @@ int main()
     text_section_dim = te - ts +1;
     data_section_dim = de - ds +1;
     
-    text_section_dim = 5;
-    
     text_section_pointer = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
     if (text_section_pointer == NULL)
     	printf("Impossible to allocate enough memory for text section!\n");

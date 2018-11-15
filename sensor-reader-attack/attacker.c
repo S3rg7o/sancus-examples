@@ -16,9 +16,9 @@
 void attacker_read(uint16_t start_addr, uint16_t end_addr, uint16_t * save_data)
 {
 	uint16_t config_register;
-	uint16_t num_of_words = 5; // (end_addr - start_addr +1) >> 1; // Divided by two because the logic addresses, in use here, 
+	uint16_t num_of_words = (end_addr - start_addr +1) >> 1; // Divided by two because the logic addresses, in use here, 
 														     // in openMSP are actually half the real addresses.
-	uint16_t counter = 0; 
+	uint16_t counter = 0;
 	
 	printf("[attacker] Starting address is 0x%.4x \n", start_addr);
 	printf("[attacker] End address is 0x%.4x \n", end_addr);
