@@ -68,10 +68,11 @@ int main()
   		
 	// Write log file for Text Section
 	sprintf(sm_name_str, "SM%d", sm_id);  		
-	strcpc(file_name,strcat(sm_name_str,"_text_section")); 	
-  	fp=fopen(file_name, "w");
+	strcpy(file_name, strcat(sm_name_str,"_text_section")); 	
+  	fp = fopen(file_name, "w");
 	if(fp == NULL)
-		exit(-1);
+		return(-1);
+		
 	fprintf(fp,"Text section content of SM%d :\n",sm_id);
   	for (i = 0; i<text_section_dim; i++)
   		fprintf(fp, "Data nr. %d: 0x%.4x \n",i, *(text_section_pointer+i) );
