@@ -19,6 +19,10 @@ int main()
     uint16_t text_section_dim;
     uint16_t data_section_dim;
     uint16_t i;
+    
+    FILE *fp;
+	char sm_name_str[3]; //for priting the log file
+	char file_name[16];
 
     msp430_io_init();
 
@@ -53,6 +57,7 @@ int main()
     text_section_dim = te - ts +1;
     data_section_dim = de - ds +1;
     
+    // Read Text section 
     text_section_pointer = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
     if (text_section_pointer == NULL)
     	printf("Impossible to allocate enough memory for text section!\n");
@@ -60,10 +65,19 @@ int main()
 		printf("start reading into SM%d's text section...\n",sm_id);
     	attacker_read(ts, te, text_section_pointer);
   		}
-  	printf("Text section content of SM%d :\n",sm_id);
+  		
+	// Write log file for Text Section
+	sprintf(sm_name_str, "SM%d", sm_id);  		
+	strcpc(file_name,strcat(sm_name_str,"_text_section")); 	
+  	fp=fopen(file_name, "w");
+	if(fp == NULL)
+		exit(-1);
+	fprintf(fp,"Text section content of SM%d :\n",sm_id);
   	for (i = 0; i<text_section_dim; i++)
-  		printf("Data nr. %d: 0x%.4x \n",i, *(text_section_pointer+i) );
-  	  		
+  		fprintf(fp, "Data nr. %d: 0x%.4x \n",i, *(text_section_pointer+i) );
+  	fclose(fp);  	  	  	
+  	  	
+  	// Read Data section  	  	  		
     data_section_pointer = (uint16_t *) malloc(data_section_dim*sizeof(uint16_t));    
     if (text_section_pointer == NULL)
     	printf("Impossible to allocate enough memory for data section!");
