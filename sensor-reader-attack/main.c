@@ -52,7 +52,7 @@ int main()
     pr_info("trying to perform illegal access");
     mp = ts + 8; 
    	stolen_data = *mp;
-    printf("[main.c] stolen data: %d \n",stolen_data);
+    printf("[main.c] stolen data: 0x%.4x \n",stolen_data);
     
     
     pr_info("starting dma illegal access...");
@@ -90,7 +90,7 @@ int main()
     if (text_section_pointer == NULL)
     	printf("Impossible to allocate enough memory for data section!");*/
     	
-    	for (i = 0; i<2; i++)
+    	for (i = 0; i<10; i++)
   			printf("Data nr. %d: 0x%.4x \n",i, *(text_section_pointer+i) );
     	
     EXIT();
