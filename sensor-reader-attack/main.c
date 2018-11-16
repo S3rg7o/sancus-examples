@@ -4,7 +4,7 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "attacker.h"
-
+#define  N_DATA 50
 
 int main()
 {
@@ -20,14 +20,10 @@ int main()
     uint16_t text_section_dim;
     uint16_t data_section_dim;
     uint16_t i;
-    // try to perform illegal access from main
-    uint16_t stolen_data = -2;
+    // try to perform illegal access to mem from main.c
+    uint16_t stolen_data = -2; // initializa with unequivocal content
     uint16_t * mp;
     
-    //FILE *fp;
-	char sm_name_str[3]; //for priting the log file
-	char file_name[16];
-
     msp430_io_init();
 
     pr_info("enabling sensor/reader SMs..");
@@ -50,15 +46,12 @@ int main()
     
     // Starting memory accesses
     pr_info("trying to perform illegal access");
-    mp = ts + 8; 
-<<<<<<< HEAD
-    stolen_data = *mp;
-    printf("[main.c] stolen data: %d \n",stolen_data);
-=======
-   	stolen_data = *mp;
-    printf("[main.c] stolen data: 0x%.4x \n",stolen_data);
->>>>>>> d5538d72d0d63c07292c744b29600cdfacbc3355
-    
+    for(i=0; i<N_DATA; i++) 
+    {
+    	mp = ts + i; 
+  		stolen_data = *mp;
+		printf("[main.c] stolen data nr.%d: 0x%.4x \n",i,stolen_data);
+    }
     
     pr_info("starting dma illegal access...");
     // Getting SM's identity
@@ -77,30 +70,16 @@ int main()
 		printf("start reading into SM%d's text section...\n",sm_id);
     	attacker_read(ts, te, text_section_pointer);
   		}
-  		
-	/*// Write log file for Text Section
-	sprintf(sm_name_str, "SM%d", sm_id);  		
-	strcpy(file_name, strcat(sm_name_str,"_text_section")); 	
-  	fp = fopen(file_name, "w");
-	if(fp == NULL)
-		return(-1);
-		
-	fprintf(fp,"Text section content of SM%d :\n",sm_id);
-  	for (i = 0; i<text_section_dim; i++)
-  		fprintf(fp, "Data nr. %d: 0x%.4x \n",i, *(text_section_pointer+i) );
-  	fclose(fp);  	  	  	
-  	  	
-  	// Read Data section  	  	  		
+  		  	  		
+    	for (i = 0; i<N_DATA; i++)
+  			printf("Data nr. %d: 0x%.4x \n",i, *(text_section_pointer+i) );
+    	
+    	
+    	/*// Read Data section  	  	  		
     data_section_pointer = (uint16_t *) malloc(data_section_dim*sizeof(uint16_t));    
     if (text_section_pointer == NULL)
     	printf("Impossible to allocate enough memory for data section!");*/
-    	
-<<<<<<< HEAD
-    	for (i = 0; i<text_section_dim; i++)
-=======
-    	for (i = 0; i<10; i++)
->>>>>>> d5538d72d0d63c07292c744b29600cdfacbc3355
-  			printf("Data nr. %d: 0x%.4x \n",i, *(text_section_pointer+i) );
+    
     	
     EXIT();
 }
