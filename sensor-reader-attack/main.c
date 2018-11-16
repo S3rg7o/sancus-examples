@@ -21,7 +21,7 @@ int main()
     uint16_t data_section_dim;
     uint16_t i;
     // try to perform illegal access from main
-    uint16_t stolen_data;
+    uint16_t stolen_data = -2;
     uint16_t * mp;
     
     //FILE *fp;
@@ -52,7 +52,7 @@ int main()
     pr_info("trying to perform illegal access");
     mp = ts + 8; 
    	stolen_data = *mp;
-    printf("[main.c] stolen data: %d",stolen_data);
+    printf("[main.c] stolen data: %d \n",stolen_data);
     
     
     pr_info("starting dma illegal access...");
