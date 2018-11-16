@@ -72,7 +72,7 @@ int main()
   		}
   		  	  		
     	for (i = 0; i<N_DATA; i++)
-  			printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i,text_section_pointer+i, *(text_section_pointer+i) );
+  			printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i,ts+i, *(text_section_pointer+i) );
     	
     	
     	/*// Read Data section  	  	  		
