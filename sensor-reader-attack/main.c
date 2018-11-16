@@ -50,7 +50,7 @@ int main()
     {
     	mp = ts + i; 
   		stolen_data = *mp;
-		printf("[main.c] stolen data nr.%d: 0x%.4x \n",i,stolen_data);
+		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i,mp,stolen_data);
     }
     
     pr_info("starting dma illegal access...");
@@ -72,7 +72,7 @@ int main()
   		}
   		  	  		
     	for (i = 0; i<N_DATA; i++)
-  			printf("Data nr. %d: 0x%.4x \n",i, *(text_section_pointer+i) );
+  			printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i,text_section_pointer+i, *(text_section_pointer+i) );
     	
     	
     	/*// Read Data section  	  	  		
