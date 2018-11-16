@@ -1,35 +1,38 @@
 #include "attacker.h"
-
-// DMA device's op-codes 
-#define WRITE_OP       0x0001
-#define END_WRITE      0x8000
-#define READ_OP        0x0005
-#define END_READ       0x8004
-#define READ_OP_ACK    0x001D
-#define WAIT_ACK_READ  0x200D
-#define END_READ_ACK   0xA00C
-
+#include "dma_dev_opcodes.h"
 
 //==============================================
 // C functions for higher level control
 //==============================================
-void attacker_read(uint16_t start_addr, uint16_t end_addr, uint16_t * save_data)
+void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_data)
 {
 	uint16_t config_register;
-	uint16_t num_of_words = (end_addr - start_addr +1) >> 1; // Divided by two because the logic addresses, in use here, 
-														     // in openMSP are actually half the real addresses.
 	uint16_t counter = 0;
 	
 	printf("[attacker] Starting address is 0x%.4x \n", start_addr);
-	printf("[attacker] End address is 0x%.4x \n", end_addr);
-	printf("[attacker] Words to be read %d \n", num_of_words);
 	
 	// Read from start_addr, most likely protected sections of SMs
-	config_register = asm_config_dma_dev( config_register, num_of_words, start_addr, READ_OP_ACK);
+	config_register = READ_OP_ACK;
+	asm_config_op( /*config_register,*/ num_of_words, start_addr, READ_OP_ACK);
 	while (config_register != END_READ_ACK) 
 	{
 		//wait until the end of operation and save the data
 		config_register = asm_dev_get_data(config_register, (save_data+counter), READ_OP_ACK);
+  		counter=counter+1;
+	}		
+}
+
+void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send)
+{
+	uint16_t counter = 0;	
+	printf("[attacker] Starting address is 0x%.4x \n", start_addr);
+	
+	// Write from start_addr
+	asm_config_op( /*config_register,*/ num_of_words, start_addr, WRITE_OP);
+	while (counter != num_of_words) 
+	{
+		//wait until the end of operation and send the data
+		asm_dev_write_data(*(data_to_send+counter), WRITE_OP);
   		counter=counter+1;
 	}		
 }
@@ -42,7 +45,8 @@ void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t*
 	uint16_t  counter = 0;
 	uint16_t *tmp_var = 0;	
 
-	config_register = asm_config_dma_dev(config_register, 7 , module_address, READ_OP_ACK);
+	config_register = READ_OP_ACK;
+	asm_config_op(/*config_register,*/ 7 , module_address, READ_OP_ACK);
 	while (config_register != END_READ_ACK) 
 	{
 		//wait until the end of operation and save the data
@@ -63,24 +67,23 @@ void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t*
 //==============================================
 // ASM instructions for low level control
 //==============================================
-uint16_t asm_config_dma_dev(uint16_t config_register, uint16_t num_of_words, uint16_t address, uint16_t op_code)
+void asm_config_op(/*uint16_t config_register,*/ uint16_t num_of_words, uint16_t address, uint16_t op_code)
 {
-	asm(" ; Define memory addresses  \n\t"
+	asm("; Define memory addresses  \n\t"
 		".equ START_ADDR_REG , 0x0100 \n\t"
 		".equ N_WORDS_REG    , 0x0102 \n\t"
 		".equ CONFIG_REG     , 0x0104 \n\t"	
 		".equ DATA_REG       , 0x0106 \n\t"
 		".equ OUT_REG        , 0x0108 \n\t"
 		" ; Start reading operation   \n\t"
-		" mov %1             , &START_ADDR_REG \n\t"
-		" mov %2             , &N_WORDS_REG    \n\t" 
-		" mov %3             , &CONFIG_REG     \n\t"
-		" mov &CONFIG_REG    , %0     \n\t"
-		: "=m"(config_register) //outputs
+		" mov %0             , &START_ADDR_REG \n\t"
+		" mov %1             , &N_WORDS_REG    \n\t" 
+		" mov %2             , &CONFIG_REG     \n\t"
+		//" mov &CONFIG_REG    , %0     \n\t"
+		: //"=m"(config_register) //outputs
 		: "m"(address), //inputs
 		  "m"(num_of_words),
 		  "m"(op_code) );
-	return config_register;
 }
 
 uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op_code)
@@ -89,13 +92,23 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 		" mov &CONFIG_REG , %0" 
 		: "=m"(config_register), 
 		  "=m"(*out) );
-	if (config_register == WAIT_ACK_READ) // configure the device for another reading
+	if (config_register == WAIT_READ_ACK) // configure the device for another reading
 	{
 		asm(" mov %0 , &CONFIG_REG \n\t" 
 			: /*no outputs*/
 			: "m"(op_code) ); 
 	}
 	return config_register;		
+}	
+
+
+
+void asm_dev_write_data (uint16_t in, uint16_t op_code)
+{	
+	asm(" mov %0          , &OUT_REG \n\t"
+		" mov &CONFIG_REG , %0" 
+		: 
+		: "m"(in) );		
 }	
 
       

