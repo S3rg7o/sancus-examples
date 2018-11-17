@@ -91,7 +91,13 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 		    : "m"(op_code));
 		*counter = *counter+1;
 	}
-	return config_register;  // if device was not in WAIT_READ_ACK, then nothing changes
+	else if (config_register == END_READ_ACK)
+	{
+		asm(" mov &DATA_REG   , %0 \n\t"          // Get last data
+			: "=m"(*out) );
+		*counter = *counter+1;
+	}
+	return config_register;  
 }	
 
 
