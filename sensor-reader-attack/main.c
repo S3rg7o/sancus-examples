@@ -4,7 +4,7 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "attacker.h"
-#define  N_DATA 2
+#define  N_DATA 10
 
 int main()
 {
@@ -55,7 +55,7 @@ int main()
 
     pr_info("all done!");
     
-    // Starting memory accesses
+    /*// Starting memory accesses
     pr_info("trying to illegally access mem from main.c");
     for(i=0; i<N_DATA; i++) 
     {
@@ -63,7 +63,7 @@ int main()
     	printf("[main.c] Address 0x%.4x\n",mp);
   		stolen_data = *((uint16_t *)mp);
 		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, mp, stolen_data);
-    }
+    }*/
     
     pr_info("starting dma illegal access...");
     
@@ -85,6 +85,7 @@ int main()
 	// Write into Text Section	
 	printf("[main.c] start writing into SM%d's text section...\n",sm_id);
 	attacker_write(ts, N_DATA, data_to_send);
+	
 	printf("[main.c] start reading into SM%d's text section after writing op...\n",sm_id);
     attacker_read(ts, N_DATA, data_saved);
     for (i = 0; i<N_DATA; i++)

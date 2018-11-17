@@ -13,7 +13,7 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 	
 	// Read from start_addr, most likely protected sections of SMs
 	config_register = READ_OP_ACK;
-	asm_config_op( /*config_register,*/ num_of_words, start_addr, READ_OP_ACK);
+	asm_config_op( num_of_words, start_addr, READ_OP_ACK);
 	while (config_register != END_READ_ACK) 
 	{
 		//wait until the end of operation and save the data
@@ -28,7 +28,7 @@ void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_
 	printf("[attacker] Starting address is 0x%.4x \n", start_addr);
 	
 	// Write from start_addr
-	asm_config_op( /*config_register,*/ num_of_words, start_addr, WRITE_OP);
+	asm_config_op( num_of_words, start_addr, WRITE_OP);
 	while (counter != num_of_words) 
 	{
 		//wait until the end of operation and send the data
@@ -46,7 +46,7 @@ void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t*
 	uint16_t *tmp_var = 0;	
 
 	config_register = READ_OP_ACK;
-	asm_config_op(/*config_register,*/ 7 , module_address, READ_OP_ACK);
+	asm_config_op(7 , module_address, READ_OP_ACK);
 	while (config_register != END_READ_ACK) 
 	{
 		//wait until the end of operation and save the data
@@ -67,7 +67,7 @@ void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t*
 //==============================================
 // ASM instructions for low level control
 //==============================================
-void asm_config_op(/*uint16_t config_register,*/ uint16_t num_of_words, uint16_t address, uint16_t op_code)
+void asm_config_op( uint16_t num_of_words, uint16_t address, uint16_t op_code)
 {
 	asm("; Define memory addresses  \n\t"
 		".equ START_ADDR_REG , 0x0100 \n\t"
@@ -79,8 +79,7 @@ void asm_config_op(/*uint16_t config_register,*/ uint16_t num_of_words, uint16_t
 		" mov %0             , &START_ADDR_REG \n\t"
 		" mov %1             , &N_WORDS_REG    \n\t" 
 		" mov %2             , &CONFIG_REG     \n\t"
-		//" mov &CONFIG_REG    , %0     \n\t"
-		: //"=m"(config_register) //outputs
+		:  //no outputs
 		: "m"(address), //inputs
 		  "m"(num_of_words),
 		  "m"(op_code) );
@@ -105,8 +104,7 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 
 void asm_dev_write_data (uint16_t in, uint16_t op_code)
 {	
-	asm(" mov %0          , &OUT_REG \n\t"
-		" mov &CONFIG_REG , %0" 
+	asm(" mov %0          , &OUT_REG"
 		: 
 		: "m"(in) );		
 }	
