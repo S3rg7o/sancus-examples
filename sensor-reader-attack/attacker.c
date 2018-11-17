@@ -15,11 +15,9 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 	config_register = READ_OP_ACK;
 	asm_config_op( num_of_words, start_addr, READ_OP_ACK);
 	while (config_register != END_READ_ACK) 
-	{
 		//wait until the end of operation and save the data
 		config_register = asm_dev_get_data(config_register, (uint16_t *)(save_data+counter), READ_OP_ACK, &counter);
-  		counter=counter+1;
-	}		
+	
 }
 
 void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send)
@@ -46,10 +44,9 @@ void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t*
 	config_register = READ_OP_ACK;
 	asm_config_op(7, module_address, READ_OP_ACK);
 	while (config_register != END_READ_ACK) 
-	{
 		//wait until the end of operation and save the data
 		config_register = asm_dev_get_data(config_register, &sm_struct_val[counter], READ_OP_ACK, &counter);
-	}	
+		
 	// Assign output values
 	*sm_id     = sm_struct_val[0];
 	*vendor_id = sm_struct_val[1];
@@ -81,21 +78,6 @@ void asm_config_op( uint16_t num_of_words, uint16_t address, uint16_t op_code)
 		  "m"(num_of_words),
 		  "m"(op_code) );
 }
-
-/*uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op_code)
-{	
-	asm(" mov &DATA_REG   , %1 \n\t"
-		" mov &CONFIG_REG , %0" 
-		: "=m"(config_register), 
-		  "=m"(*out) );
-	if (config_register == WAIT_READ_ACK) // configure the device for another reading
-	{
-		asm(" mov %0 , &CONFIG_REG \n\t" 
-			: //no outputs
-			: "m"(op_code) ); 
-	}
-	return config_register;		
-}	*/
 
 uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op_code, uint16_t* counter)
 {
