@@ -8,21 +8,21 @@
 
 int main()
 {
-    uint16_t sm_id = 99;
-    uint16_t vendor_id;
-    char     name[10];
-    uint16_t ts;
-	uint16_t te;
-	uint16_t ds;
-	uint16_t de;
-	uint16_t *data_saved;
-    uint16_t text_section_dim;
-    uint16_t data_section_dim;
-    uint16_t i;
-    uint16_t data_to_send[N_DATA];
+    sm_id     id;
+    vendor_id vendor_id;
+    char      name[10];
+    uint16_t  ts;
+	uint16_t  te;
+	uint16_t  ds;
+	uint16_t  de;
+	uint16_t  *data_saved;
+    uint16_t  text_section_dim;
+    uint16_t  data_section_dim;
+    uint16_t  i;
+    uint16_t  data_to_send[N_DATA];
     // variable for trying to perform illegal access to mem from main.c
-    uint16_t stolen_data = -2; // initialize with unequivocal content
-    uint16_t mp;
+    uint16_t  stolen_data = -2; // initialize with unequivocal content
+    uint16_t  mp;
     
     // Allocate dinamic memory for saving read content    
     text_section_dim = N_DATA;
@@ -67,14 +67,14 @@ int main()
     pr_info("starting dma illegal access...");
     
     // Getting SM's identity
-    get_struct_val(&reader, &ts, &te, &ds, &de, &sm_id, &vendor_id, name);
-    printf("SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n", sm_id, ts, te, ds, de);
+    get_struct_val(&reader, &ts, &te, &ds, &de, &id, &vendor_id, name);
+    printf("SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n", id, ts, te, ds, de);
    	
    	// Read Text section 
     if (data_saved == NULL)
     	printf("[main.c] impossible to allocate enough memory for text section!\n");
 	else {
-		printf("[main.c] start reading into SM%d's text section...\n",sm_id);
+		printf("[main.c] start reading into SM%d's text section...\n",id);
     	attacker_read(ts, N_DATA, data_saved);
   		}
   		  	  		
@@ -82,12 +82,12 @@ int main()
   			printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, ts+i, *(data_saved+i) );
   			
 	// Write into Text Section	
-	printf("[main.c] start writing into SM%d's text section...\n",sm_id);
+	printf("[main.c] start writing into SM%d's text section...\n",id);
 	for (i = 0; i<N_DATA; i++)
 		printf("data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);
 	attacker_write(ts, N_DATA, data_to_send);
 	
-	printf("[main.c] start reading into SM%d's text section after writing op...\n",sm_id);
+	printf("[main.c] start reading into SM%d's text section after writing op...\n",id);
     attacker_read(ts, N_DATA, data_saved);
     for (i = 0; i<N_DATA; i++)
   			printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, ts+i, *(data_saved+i) );  
