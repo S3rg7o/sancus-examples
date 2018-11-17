@@ -4,7 +4,7 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "attacker.h"
-#define  N_DATA 10
+#define  N_DATA 2
 
 int main()
 {
@@ -84,6 +84,8 @@ int main()
   			
 	// Write into Text Section	
 	printf("[main.c] start writing into SM%d's text section...\n",sm_id);
+	for (i = 0; i<N_DATA; i++)
+		printf("data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);
 	attacker_write(ts, N_DATA, data_to_send);
 	
 	printf("[main.c] start reading into SM%d's text section after writing op...\n",sm_id);
