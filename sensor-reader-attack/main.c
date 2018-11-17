@@ -8,7 +8,7 @@
 
 int main()
 {
-    uint16_t sm_id;
+    uint16_t sm_id = 99;
     uint16_t vendor_id;
     char     name[10];
     uint16_t ts;
@@ -16,7 +16,6 @@ int main()
 	uint16_t ds;
 	uint16_t de;
 	uint16_t *data_saved;
-    uint16_t *data_section_pointer;
     uint16_t text_section_dim;
     uint16_t data_section_dim;
     uint16_t i;
@@ -91,7 +90,7 @@ int main()
 	printf("[main.c] start reading into SM%d's text section after writing op...\n",sm_id);
     attacker_read(ts, N_DATA, data_saved);
     for (i = 0; i<N_DATA; i++)
-  			printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, ts+i, *(data_saved+i) );  
+  			printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, ts+i, *(data_saved+i) );  
     	
     EXIT();
 }
