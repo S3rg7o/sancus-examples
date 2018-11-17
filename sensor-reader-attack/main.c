@@ -10,7 +10,7 @@ int main()
 {
     unsigned sm_id;
     unsigned vendor_id;
-    char*    name = "1234567890";
+    char     name[10];
     uint16_t ts;
 	uint16_t te;
 	uint16_t ds;
@@ -23,7 +23,7 @@ int main()
     uint16_t data_to_send[N_DATA];
     // variable for trying to perform illegal access to mem from main.c
     uint16_t stolen_data = -2; // initialize with unequivocal content
-    uint16_t * mp;
+    uint16_t mp;
     
     // Allocate dinamic memory for saving read content    
     text_section_dim = N_DATA;
@@ -59,9 +59,9 @@ int main()
     pr_info("trying to illegally access mem from main.c");
     for(i=0; i<N_DATA; i++) 
     {
-    	mp = (uint16_t *)(ts + i); 
+    	mp = reader.public_start + i; 
     	printf("[main.c] Address 0x%.4x\n",mp);
-  		stolen_data = *mp;
+  		stolen_data = *((uint16_t *)mp);
 		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, mp, stolen_data);
     }
     

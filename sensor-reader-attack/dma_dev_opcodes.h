@@ -15,8 +15,8 @@
 #define READ_OP        0x0005  
 #define END_READ       0x8004  
 
-// One-by-one Operations
-#define WRITE_OP       0x0001
+// Non-Atomic Operations, need main.c acknowledge. One data by one
+#define WRITE_OP       0x0009
 #define READ_OP_ACK    0x001D  
 #define WAIT_READ_ACK  0x200D  
 #define END_READ_ACK   0xA00C  
