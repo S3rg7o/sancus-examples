@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Nov 17 13:35:12 2018
+[*] Sat Nov 17 14:10:33 2018
 [*]
 [dumpfile] "/home/sergio/sancus-examples/sensor-reader-attack/sancus_sim.fst"
-[dumpfile_mtime] "Sat Nov 17 13:35:00 2018"
-[dumpfile_size] 419
+[dumpfile_mtime] "Sat Nov 17 14:10:19 2018"
+[dumpfile_size] 19516082
 [savefile] "/home/sergio/sancus-examples/sensor-reader-attack/dma_dev_view.gtkw"
-[timestart] 9856754000
+[timestart] 9925865000
 [size] 1311 704
 [pos] -1 -1
-*-18.889263 9858075000 9858075000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.889263 9926375000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_openMSP430.
 [treeopen] tb_openMSP430.dma_cntrl.
 [sst_width] 233
@@ -48,17 +48,8 @@ tb_openMSP430.dma_dev0.out_reg[15:0]
 @28
 [color] 2
 tb_openMSP430.dma_cntrl.clk
-@22
-tb_openMSP430.mem200[15:0]
-tb_openMSP430.mem202[15:0]
-tb_openMSP430.mem204[15:0]
-tb_openMSP430.mem206[15:0]
-tb_openMSP430.mem208[15:0]
-tb_openMSP430.mem210[15:0]
 @200
 -DMA Controller
-@29
-tb_openMSP430.dma_cntrl.flag_cnt_words
 @820
 tb_openMSP430.msp_debug_0.dma_state[255:0]
 @28

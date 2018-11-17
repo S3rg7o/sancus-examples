@@ -9,7 +9,7 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 	uint16_t config_register;
 	uint16_t counter = 0;
 	
-	printf("[attacker] Starting address is 0x%.4x \n", start_addr);
+	printf("[attacker-read] Starting address is 0x%.4x \n", start_addr);
 	
 	// Read from start_addr, most likely protected sections of SMs
 	config_register = READ_OP_ACK;
@@ -25,7 +25,7 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send)
 {
 	uint16_t counter = 0;	
-	printf("[attacker] Starting address is 0x%.4x \n", start_addr);
+	printf("[attacker-write] Starting address is 0x%.4x \n", start_addr);
 	
 	// Write from start_addr
 	asm_config_op( num_of_words, start_addr, WRITE_OP);
@@ -38,7 +38,7 @@ void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_
 }
 
 
-void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t* te, uint16_t* ds, uint16_t* de, unsigned * sm_id, unsigned * vendor_id, char* name)
+void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t* te, uint16_t* ds, uint16_t* de, uint16_t* sm_id, uint16_t* vendor_id, char* name)
 {
 	uint16_t  config_register;
 	uint16_t  sm_struct_val[7];

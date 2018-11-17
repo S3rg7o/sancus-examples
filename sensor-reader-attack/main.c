@@ -4,12 +4,12 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "attacker.h"
-#define  N_DATA 2
+#define  N_DATA 10
 
 int main()
 {
-    unsigned sm_id;
-    unsigned vendor_id;
+    uint16_t sm_id;
+    uint16_t vendor_id;
     char     name[10];
     uint16_t ts;
 	uint16_t te;
@@ -69,7 +69,7 @@ int main()
     
     // Getting SM's identity
     get_struct_val(&reader, &ts, &te, &ds, &de, &sm_id, &vendor_id, name);
-    printf("%s \n SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n",name,sm_id, ts, te, ds, de);
+    printf("SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n", sm_id, ts, te, ds, de);
    	
    	// Read Text section 
     if (data_saved == NULL)
