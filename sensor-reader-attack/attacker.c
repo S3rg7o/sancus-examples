@@ -16,9 +16,9 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 	asm_config_op( num_of_words, start_addr, READ_OP_ACK);
 	while (config_register != END_READ_ACK) 
 		//wait until the end of operation and save the data
-		config_register = asm_dev_get_data(config_register, (uint16_t *)(save_data+counter), READ_OP_ACK, &counter);
-	
+		config_register = asm_dev_get_data(config_register, (uint16_t *)(save_data+counter), READ_OP_ACK, &counter);	
 }
+
 
 void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send)
 {
@@ -28,10 +28,8 @@ void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_
 	// Write from start_addr
 	asm_config_op( num_of_words, start_addr, WRITE_OP);
 	while (counter < num_of_words) 
-	{
 		//wait until the end of operation and send the data
 		asm_dev_write_data( *(data_to_send+counter), WRITE_OP, &counter);
-	}		
 }
 
 
