@@ -38,7 +38,7 @@ int main()
     sancus_enable(&reader);
     pr_sm_info(&reader);
 
-   /* pr_info("requesting sensor readings..");
+    pr_info("requesting sensor readings..");
     nonce_t no = 0xabcd;
     ReaderOutput out;
     get_readings(no, &out);
@@ -49,8 +49,6 @@ int main()
     dump_buf((uint8_t*)&out.tag, sizeof(out.tag), "  Tag");
 
     pr_info("all done!");
-    
-    */
     
     
     /*// Starting memory accesses
@@ -73,6 +71,7 @@ int main()
     text_section_dim = N_DATA;
     data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
     	
+	
 	// Read Text section 
     if (data_saved == NULL) {
     	printf("[main.c] impossible to allocate enough memory for text section!\n");
@@ -86,13 +85,14 @@ int main()
 	print_add = ts;  		  	  		
    	for (i = 0; i<N_DATA; i++)
    	{
-		printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
+		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
 		print_add = print_add +2;
 	}	
+	
 	// Write into Text Section	
 	printf("[main.c] start writing into SM%d's text section...\n",id);
 	for (i = 0; i<N_DATA; i++)
-		printf("data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);
+		printf("[main.c] data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);
 	attacker_write(ts, N_DATA, data_to_send);
 	
 	printf("[main.c] start reading into SM%d's text section after having written...\n",id);
@@ -101,7 +101,7 @@ int main()
     print_add = ts; 
     for (i = 0; i<N_DATA; i++)
   	{
-  		printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );  
+  		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );  
     	print_add = print_add + 2;  
     }		
     
@@ -127,7 +127,7 @@ int main()
 	print_add = ds;  		  	  		
    	for (i = 0; i<N_DATA; i++)
    	{
-		printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
+		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
 		print_add = print_add +2;
 	}	
 	// Write into Data Section	
@@ -142,7 +142,7 @@ int main()
     print_add = ds; 
     for (i = 0; i<N_DATA; i++)
   	{
-  		printf("[attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );  
+  		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );  
     	print_add = print_add + 2;  
     }	
   
