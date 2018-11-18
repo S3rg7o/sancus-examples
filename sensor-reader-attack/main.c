@@ -4,7 +4,7 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "attacker.h"
-#define  N_DATA 10
+#define  N_DATA 40
 
 int main()
 {
@@ -38,7 +38,7 @@ int main()
     sancus_enable(&reader);
     pr_sm_info(&reader);
 
-    pr_info("requesting sensor readings..");
+   /* pr_info("requesting sensor readings..");
     nonce_t no = 0xabcd;
     ReaderOutput out;
     get_readings(no, &out);
@@ -49,6 +49,9 @@ int main()
     dump_buf((uint8_t*)&out.tag, sizeof(out.tag), "  Tag");
 
     pr_info("all done!");
+    
+    */
+    
     
     /*// Starting memory accesses
     pr_info("trying to illegally access mem from main.c");

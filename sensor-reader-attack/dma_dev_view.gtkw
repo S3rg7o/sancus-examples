@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Nov 17 18:51:50 2018
+[*] Sun Nov 18 11:23:11 2018
 [*]
 [dumpfile] "/home/sergio/sancus-examples/sensor-reader-attack/sancus_sim.fst"
-[dumpfile_mtime] "Sat Nov 17 18:51:45 2018"
-[dumpfile_size] 419
+[dumpfile_mtime] "Sun Nov 18 11:22:41 2018"
+[dumpfile_size] 330
 [savefile] "/home/sergio/sancus-examples/sensor-reader-attack/dma_dev_view.gtkw"
-[timestart] 7704598000
+[timestart] 5798863700
 [size] 1311 704
 [pos] -1 -1
-*-18.889263 7705525000 7705525000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-15.889263 5798975000 5798975000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_openMSP430.
 [sst_width] 233
 [signals_width] 241
@@ -19,6 +19,7 @@
 -DEV internal regs
 @22
 tb_openMSP430.dma_dev0.start_addr[15:0]
+@24
 tb_openMSP430.dma_dev0.n_words[15:0]
 @c00022
 tb_openMSP430.dma_dev0.config_reg[15:0]
@@ -59,7 +60,11 @@ tb_openMSP430.dma_cntrl.dma_we[1:0]
 tb_openMSP430.dma_dev0.dma_rqst
 @200
 -DMA - MSP
-@22
+@24
+tb_openMSP430.dma_cntrl.count[13:0]
+tb_openMSP430.dma_cntrl.dev_count_saved[13:0]
+tb_openMSP430.dma_cntrl.msp_count_saved[13:0]
+@23
 +{tb_openMSP430.dma_cntrl.dma_addr[14:0]} tb_openMSP430.dma_cntrl.dma_addr[14:0]
 @c00022
 +{tb_openMSP430.dma_cntrl.IN_from_msp[15:0]} tb_openMSP430.dma_cntrl.dma_in[15:0]
@@ -115,9 +120,8 @@ tb_openMSP430.dma_cntrl.dev_ack
 -group_end
 @200
 -Internal FIFO
-@22
-tb_openMSP430.dma_cntrl.fifo_mem.fifo_addr[4:0]
 @28
+tb_openMSP430.dma_cntrl.fifo_empty_partial
 tb_openMSP430.dma_cntrl.fifo_full
 @22
 tb_openMSP430.msp_debug_0.fifo_reg_0[16:0]
