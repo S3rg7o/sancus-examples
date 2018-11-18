@@ -25,6 +25,7 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 
 void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send)
 {
+	uint16_t config_register;
 	uint16_t counter = 0;	
 	printf("[attacker-write] Starting address is 0x%.4x \n", start_addr);
 	
@@ -32,7 +33,7 @@ void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_
 	asm_config_op( num_of_words, start_addr, WRITE_OP);
 	while (counter < num_of_words) 
 		//wait until the end of operation and send the data
-		asm_dev_write_data( *(data_to_send+counter), WRITE_OP, &counter);
+		config_register = asm_dev_write_data(config_register, *(data_to_send+counter), WRITE_OP, &counter);
 	asm("mov %0 , &CONFIG_REG "
 	   : 
 	   : "i"(RESET_REGS)); // reset register before leaving
@@ -107,12 +108,18 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 
 
 
-void asm_dev_write_data (uint16_t in, uint16_t op_code, uint16_t *counter)
+uint16_t asm_dev_write_data (uint16_t config_register, uint16_t in, uint16_t op_code, uint16_t *counter)
 {	
-	asm(" mov %0          , &OUT_REG"
+	asm(" mov &CONFIG_REG , %0"    // Get config_reg_value
+        : "=m"(config_register));
+    if (config_register == WRITE_OK) //write only if dma_controller is ready
+    {
+    	asm(" mov %0          , &OUT_REG"
 		: //no outputs. Device auto-generates the ack. 
 		: "m"(in) );		
-	*counter = *counter+1;
+		*counter = *counter+1;	
+    }   	
+	return config_register;
 }	
 
       

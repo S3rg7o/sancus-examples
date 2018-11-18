@@ -17,6 +17,8 @@
 
 // Non-Atomic Operations, need main.c acknowledge. One data by one
 #define WRITE_OP       0x0009
+#define WRITE_OK       0x0809
+
 #define READ_OP_ACK    0x001D  
 #define WAIT_READ_ACK  0x200D  
 #define END_READ_ACK   0xA00C  
