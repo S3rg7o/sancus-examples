@@ -49,9 +49,9 @@ int main()
     dump_buf((uint8_t*)&out.tag, sizeof(out.tag), "  Tag");
 
     pr_info("all done!");
+    */
     
-    
-    /*// Starting memory accesses
+    // Starting memory accesses
     pr_info("trying to illegally access mem from main.c");
     for(i=0; i<N_DATA; i++) 
     {
@@ -72,7 +72,7 @@ int main()
     data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
     	
 	
-	
+		
 	// Read Text section 
     if (data_saved == NULL) {
     	printf("[main.c] impossible to allocate enough memory for text section!\n");
@@ -88,7 +88,7 @@ int main()
    	{
 		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
 		print_add = print_add +2;
-	}	
+	}	*/
 	
 	// Write into Text Section	
 	printf("[main.c] start writing into SM%d's text section...\n",id);
@@ -106,7 +106,7 @@ int main()
     	print_add = print_add + 2;  
     }		
     
-    printf("-----------------------------------------------------------\n");
+    /*printf("-----------------------------------------------------------\n");
     printf("-----------------------------------------------------------\n");
     printf("-----------------------------------------------------------\n");
         
@@ -146,8 +146,7 @@ int main()
   		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );  
     	print_add = print_add + 2;  
     }	
-  
+  */
     
     EXIT();
 }
-
