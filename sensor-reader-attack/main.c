@@ -49,7 +49,7 @@ int main()
     dump_buf((uint8_t*)&out.tag, sizeof(out.tag), "  Tag");
 
     pr_info("all done!");
-    */
+    
     
     // Starting memory accesses
     pr_info("trying to illegally access mem from main.c");
@@ -59,7 +59,7 @@ int main()
     	printf("[main.c] Address 0x%.4x\n",mp);
   		stolen_data = *((uint16_t *)mp);
 		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, mp, stolen_data);
-    }*/
+    }
     
     pr_info("starting dma illegal access...");
     
@@ -88,7 +88,7 @@ int main()
    	{
 		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
 		print_add = print_add +2;
-	}	*/
+	}	
 	
 	// Write into Text Section	
 	printf("[main.c] start writing into SM%d's text section...\n",id);
