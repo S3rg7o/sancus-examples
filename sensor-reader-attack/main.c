@@ -25,10 +25,7 @@ int main()
     uint16_t  stolen_data = -2; // initialize with unequivocal content
     uint16_t  mp;
     
-    // Initialize data to be written
-	for (i=0; i<N_DATA; i++)
-		//data_to_send[i] = (i%2 == 0) ? 0xF00D : 0xF1D0;
-		data_to_send[i] = i;	
+ 
 	//---------------------------------------------------
     msp430_io_init();
 
@@ -71,6 +68,10 @@ int main()
     text_section_dim = N_DATA;
     data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
     	
+    // Initialize data to be written
+	for (i=0; i< text_section_dim; i++)
+		//data_to_send[i] = (i%2 == 0) ? 0xF00D : 0xF1D0;
+		data_to_send[i] = i;		
 
 	// Read Text section 
     if (data_saved == NULL) {
@@ -83,7 +84,7 @@ int main()
   		}
 
 	print_add = ts;  		  	  		
-   	for (i = 0; i<N_DATA; i++)
+   	for (i = 0; i< text_section_dim; i++)
    	{
 		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
 		print_add = print_add +2;
@@ -99,7 +100,7 @@ int main()
     attacker_read(ts, N_DATA, data_saved);
     
     print_add = ts; 
-    for (i = 0; i<N_DATA; i++)
+    for (i = 0; i< text_section_dim; i++)
   	{
   		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );  
     	print_add = print_add + 2;  
