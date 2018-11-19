@@ -11,7 +11,7 @@ int main()
     sm_id     id;
     vendor_id vendor_id;
     char      name[10];
-    uint16_t  print_add; // used in printing correct accessed mem. addresses
+    uint16_t  add; // used in printing correct accessed mem. addresses
     uint16_t  ts;
 	uint16_t  te;
 	uint16_t  ds;
@@ -65,26 +65,31 @@ int main()
     // Read Text Section	
     text_section_dim = N_DATA;
     printf("[main.c] start reading into SM%d's text section...\n",id);
-    print_add = ts;  	
+    add = ts;  	
     for (i=0; i < text_section_dim; i++)
 	{
-		attacker_read(ts+i, 1, &data_saved);
-		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, data_saved);
-		print_add = print_add +2;
+		attacker_read(add, 1, &data_saved);
+		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, add, data_saved);
+		add = add +2;
   	}  			  	 
 	
 	// Write into Text Section	
 	printf("[main.c] start writing into SM%d's text section...\n",id);
+	add = ts;
 	for (i=0; i < text_section_dim; i++)
-		attacker_write(ts+i, 1, &i);
+	{
+		attacker_write(add, 1, &i);
+		add = add+2;
+	}
 	
+	// Read Text Section
 	printf("[main.c] start reading into SM%d's text section after having written...\n",id);
-    print_add = ts; 
+    add = ts; 
     for (i=0; i < text_section_dim; i++)
 	{
-		attacker_read(ts+i, 1, &data_saved);
-		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, data_saved);
-		print_add = print_add +2;
+		attacker_read(add, 1, &data_saved);
+		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, add, data_saved);
+		add = add +2;
   	}  	
         
     EXIT();

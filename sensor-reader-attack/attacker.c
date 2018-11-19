@@ -33,7 +33,7 @@ void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_
 	asm_config_op( num_of_words, start_addr, WRITE_OP);
 	while (counter < num_of_words) 
 		//wait until the end of operation and send the data
-		config_register = asm_dev_write_data(config_register, (uint16_t *)(data_to_send+counter), WRITE_OP, &counter);
+		config_register = asm_dev_write_data(config_register, *(data_to_send+counter), WRITE_OP, &counter);
 	asm("mov %0 , &CONFIG_REG "
 	   : 
 	   : "i"(RESET_REGS)); // reset register before leaving
