@@ -27,8 +27,8 @@ int main()
     
     // Initialize with a message
 	for (i=0; i<N_DATA; i++)
-		data_to_send[i] = (i%2 == 0) ? 0xF00D : 0xF1D0;
-			
+		//data_to_send[i] = (i%2 == 0) ? 0xF00D : 0xF1D0;
+		data_to_send[i] = i;	
 	//---------------------------------------------------
     msp430_io_init();
 
@@ -38,7 +38,7 @@ int main()
     sancus_enable(&reader);
     pr_sm_info(&reader);
 
-    pr_info("requesting sensor readings..");
+    /*pr_info("requesting sensor readings..");
     nonce_t no = 0xabcd;
     ReaderOutput out;
     get_readings(no, &out);
@@ -49,9 +49,9 @@ int main()
     dump_buf((uint8_t*)&out.tag, sizeof(out.tag), "  Tag");
 
     pr_info("all done!");
+    */
     
-    
-    // Starting memory accesses
+    /*// Starting memory accesses
     pr_info("trying to illegally access mem from main.c");
     for(i=0; i<N_DATA; i++) 
     {
@@ -59,7 +59,7 @@ int main()
     	printf("[main.c] Address 0x%.4x\n",mp);
   		stolen_data = *((uint16_t *)mp);
 		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, mp, stolen_data);
-    }
+    }*/
     
     pr_info("starting dma illegal access...");
     
@@ -70,9 +70,9 @@ int main()
    	// Allocate dinamic memory for saving read content    
     text_section_dim = N_DATA;
     data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
-    	
+   /* 	
 	
-		
+	
 	// Read Text section 
     if (data_saved == NULL) {
     	printf("[main.c] impossible to allocate enough memory for text section!\n");
@@ -88,12 +88,12 @@ int main()
    	{
 		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, print_add, *(data_saved+i) );
 		print_add = print_add +2;
-	}	
+	}	*/
 	
 	// Write into Text Section	
 	printf("[main.c] start writing into SM%d's text section...\n",id);
-	for (i = 0; i<N_DATA; i++)
-		printf("[main.c] data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);
+	//for (i = 0; i<N_DATA; i++)
+	//	printf("[main.c] data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);
 	attacker_write(ts, N_DATA, data_to_send);
 	
 	printf("[main.c] start reading into SM%d's text section after having written...\n",id);
@@ -150,3 +150,4 @@ int main()
     
     EXIT();
 }
+
