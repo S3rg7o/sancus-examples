@@ -16,11 +16,9 @@ int main()
 	uint16_t  te;
 	uint16_t  ds;
 	uint16_t  de;
-	uint16_t  *data_saved;
-    uint16_t  text_section_dim;
+	uint16_t  text_section_dim;
     uint16_t  data_section_dim;
     uint16_t  i;
-    uint16_t  data_to_send[N_DATA];
     // variable for trying to perform illegal access to mem from main.c
     uint16_t  stolen_data = -2; // initialize with unequivocal content
     uint16_t  mp;
@@ -68,11 +66,11 @@ int main()
     text_section_dim = N_DATA;
     data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
     	
-    // Initialize data to be written
+    /*// Initialize data to be written
 	for (i=0; i< text_section_dim; i++)
-		//data_to_send[i] = (i%2 == 0) ? 0xF00D : 0xF1D0;
 		data_to_send[i] = i;		
-
+	*/
+	
 	// Read Text section 
     if (data_saved == NULL) {
     	printf("[main.c] impossible to allocate enough memory for text section!\n");
