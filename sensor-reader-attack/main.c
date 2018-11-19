@@ -71,8 +71,7 @@ int main()
     text_section_dim = N_DATA;
     data_saved = (uint16_t *) malloc(text_section_dim*sizeof(uint16_t));
     	
-	
-	
+
 	// Read Text section 
     if (data_saved == NULL) {
     	printf("[main.c] impossible to allocate enough memory for text section!\n");
