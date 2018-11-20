@@ -62,8 +62,12 @@ int main()
     get_struct_val(&reader, &ts, &te, &ds, &de, &id, &vendor_id, name);
     printf("SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n", id, ts, te, ds, de);
    	
-    // Read Text Section	
+   	// =========================
     text_section_dim = N_DATA;
+   	// =========================
+   	
+   	
+    // Read Text Section	
     printf("[main.c] start reading into SM%d's text section...\n",id);
     add = ts;  	
     for (i=0; i < text_section_dim; i++)
