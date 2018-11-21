@@ -48,7 +48,7 @@ int main()
     pr_info("all done!");
     
     
-    /*// Starting memory accesses
+    // Starting memory accesses
     pr_info("trying to illegally access mem from main.c");
     for(i=0; i<N_DATA; i++) 
     {
@@ -56,7 +56,7 @@ int main()
     	printf("[main.c] Address 0x%.4x\n",mp);
   		stolen_data = *((uint16_t *)mp);
 		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, mp, stolen_data);
-    }*/
+    }
     
     pr_info("starting dma illegal access...");
     
