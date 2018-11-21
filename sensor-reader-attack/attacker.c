@@ -9,9 +9,9 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 	uint16_t config_register;
 	uint16_t counter = 0;
 	
-	printf("[attacker-read] Starting address is 0x%.4x \n", start_addr);
+	//printf("[attacker-read] Starting address is 0x%.4x \n", start_addr);
 	
-	// Read from start_addr, most likely protected sections of SMs
+	// Read from start_addr
 	config_register = READ_OP_ACK;
 	asm_config_op( num_of_words, start_addr, READ_OP_ACK);
 	while (config_register != END_READ_ACK) 
@@ -27,7 +27,7 @@ void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_
 {
 	uint16_t config_register;
 	uint16_t counter = 0;	
-	printf("[attacker-write] Starting address is 0x%.4x \n", start_addr);
+	//printf("[attacker-write] Starting address is 0x%.4x \n", start_addr);
 	
 	// Write from start_addr
 	asm_config_op( num_of_words, start_addr, WRITE_OP);

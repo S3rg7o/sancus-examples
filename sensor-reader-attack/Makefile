@@ -23,11 +23,11 @@ load: $(TARGET)
 # redirect output to file and stdout (apt-get install expect)
 # https://stackoverflow.com/a/7219252
 sim: $(TARGET)
-	echo "\n \n \t \t PRESAVED DATA \n" 
+	echo "\n \n \t \t ONE BY ONE CASE \n" 
 	date +"%T"
 	unbuffer $(SANCUS_SIM) $(SIMFLAGS) $< | tee sim.out
 	./unwrap.py $(READER_SM_KEY) sim.out
-	date +"%T"
+	echo $(date +"%T")
 	
 clean:
 	$(RM) $(TARGET) $(TARGET_NO_MAC) $(OBJECTS)
