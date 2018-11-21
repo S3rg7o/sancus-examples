@@ -20,7 +20,7 @@ script:
   - docker ps -a
 
 env:
-  - TARGET=hello-world          SECURITY=64
+  #- TARGET=hello-world          SECURITY=64
   - TARGET=attack-one-by-one    SECURITY=64
   - TARGET=attack-presaved-data SECURITY=64
   #- TARGET=hello-world          SECURITY=128
