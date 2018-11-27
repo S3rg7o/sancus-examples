@@ -10,7 +10,7 @@ services:
 language: c
 
 before_install:
-  - git clone https://github.com/S3rg7o/sancus-main.git # Install Sergio's custom Sancus core - DMA support
+  - git clone https://github.com/S3rg7o/sancus-main.git # Sergio Install's custom Sancus core - DMA support
   - cd sancus-main/docker && make build SANCUS_SECURITY=$SECURITY 
  
 script:
@@ -23,6 +23,7 @@ env:
   #- TARGET=hello-world          SECURITY=64
   - TARGET=attack-one-by-one    SECURITY=64
   - TARGET=attack-presaved-data SECURITY=64
+  - TARGET=memory-access-bug	SECURITY=64	
   #- TARGET=hello-world          SECURITY=128
   #- TARGET=sensor-reader        SECURITY=64
   #- TARGET=arithmetic           SECURITY=64
