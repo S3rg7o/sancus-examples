@@ -1,16 +1,17 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue Nov 27 14:13:49 2018
+[*] Fri Nov 30 16:06:07 2018
 [*]
 [dumpfile] "/home/sergio/sancus-examples/attack-one-by-one/sancus_sim.fst"
-[dumpfile_mtime] "Tue Nov 27 12:19:53 2018"
-[dumpfile_size] 14643066
+[dumpfile_mtime] "Fri Nov 30 16:04:28 2018"
+[dumpfile_size] 13959250
 [savefile] "/home/sergio/sancus-examples/attack-one-by-one/dma_dev_view.gtkw"
-[timestart] 6610678000
+[timestart] 6405320000
 [size] 1311 704
 [pos] -1 -1
-*-18.174809 6611225000 6611225000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-22.174809 6413860000 6611225000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_openMSP430.
+[treeopen] tb_openMSP430.dma_dev0.
 [treeopen] tb_openMSP430.dut.
 [treeopen] tb_openMSP430.dut.execution_unit_0.
 [treeopen] tb_openMSP430.dut.execution_unit_0.spm_control_0.
@@ -24,47 +25,9 @@
 tb_openMSP430.dma_dev0.start_addr[15:0]
 @24
 tb_openMSP430.dma_dev0.n_words[15:0]
-@c00022
->13000
+@23
 tb_openMSP430.dma_dev0.config_reg[15:0]
-@28
->13000
-(0)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(1)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(2)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(3)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(4)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(5)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(6)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(7)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(8)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(9)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(10)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(11)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(12)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(13)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(14)tb_openMSP430.dma_dev0.config_reg[15:0]
->13000
-(15)tb_openMSP430.dma_dev0.config_reg[15:0]
-@1401200
->13000
--group_end
 @22
->0
 tb_openMSP430.dma_dev0.read_reg[15:0]
 tb_openMSP430.dma_dev0.write_reg[15:0]
 @28
@@ -221,8 +184,3 @@ tb_openMSP430.dut.execution_unit_0.spm_control_0.omsp_spms[1].mem_violation
 tb_openMSP430.dut.execution_unit_0.spm_control_0.handling_irq
 [pattern_trace] 1
 [pattern_trace] 0
-!100000@@
-?"FFFA
-@23
-tb_openMSP430.dut.frontend_0.pc[15:0]
-!!

@@ -21,7 +21,8 @@
 
 #define READ_OP_ACK    0x001D  
 #define WAIT_READ_ACK  0x200D  
-#define END_READ_ACK   0xA00C  
+//#define END_READ_ACK   0xA00C  
+#define END_READ_ACK   0xA00D  
 #define RESET_REGS     0x0020		
 
 
