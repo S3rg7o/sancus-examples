@@ -56,12 +56,13 @@ int main()
 		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, mp, stolen_data);
     }*/
     
-    pr_info("starting dma illegal access...");
     
     // Getting SM's identity
     get_struct_val(&reader, &ts, &te, &ds, &de, &id, &vendor_id, name);
     printf("SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n", id, ts, te, ds, de);
    	
+    pr_info("starting dma illegal access...");
+    
    	// =========================
     text_section_dim = N_DATA;
    	// =========================

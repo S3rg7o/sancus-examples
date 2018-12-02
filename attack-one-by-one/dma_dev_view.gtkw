@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Nov 30 16:06:07 2018
+[*] Sun Dec  2 16:49:02 2018
 [*]
 [dumpfile] "/home/sergio/sancus-examples/attack-one-by-one/sancus_sim.fst"
-[dumpfile_mtime] "Fri Nov 30 16:04:28 2018"
-[dumpfile_size] 13959250
+[dumpfile_mtime] "Sun Dec  2 14:37:55 2018"
+[dumpfile_size] 15086624
 [savefile] "/home/sergio/sancus-examples/attack-one-by-one/dma_dev_view.gtkw"
-[timestart] 6405320000
+[timestart] 7493681700
 [size] 1311 704
 [pos] -1 -1
-*-22.174809 6413860000 6611225000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.174809 7493825000 7493825000 7493875000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_openMSP430.
 [treeopen] tb_openMSP430.dma_dev0.
 [treeopen] tb_openMSP430.dut.
@@ -25,9 +25,8 @@
 tb_openMSP430.dma_dev0.start_addr[15:0]
 @24
 tb_openMSP430.dma_dev0.n_words[15:0]
-@23
-tb_openMSP430.dma_dev0.config_reg[15:0]
 @22
+tb_openMSP430.dma_dev0.config_reg[15:0]
 tb_openMSP430.dma_dev0.read_reg[15:0]
 tb_openMSP430.dma_dev0.write_reg[15:0]
 @28
