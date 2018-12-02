@@ -1,19 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sun Dec  2 16:49:02 2018
+[*] Sun Dec  2 17:33:41 2018
 [*]
 [dumpfile] "/home/sergio/sancus-examples/attack-one-by-one/sancus_sim.fst"
-[dumpfile_mtime] "Sun Dec  2 14:37:55 2018"
-[dumpfile_size] 15086624
+[dumpfile_mtime] "Sun Dec  2 17:19:59 2018"
+[dumpfile_size] 30389273
 [savefile] "/home/sergio/sancus-examples/attack-one-by-one/dma_dev_view.gtkw"
-[timestart] 7493681700
+[timestart] 7494382900
 [size] 1311 704
 [pos] -1 -1
-*-17.174809 7493825000 7493825000 7493875000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.174809 7494525000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_openMSP430.
 [treeopen] tb_openMSP430.dma_dev0.
 [treeopen] tb_openMSP430.dut.
-[treeopen] tb_openMSP430.dut.execution_unit_0.
 [treeopen] tb_openMSP430.dut.execution_unit_0.spm_control_0.
 [sst_width] 233
 [signals_width] 261
@@ -43,6 +42,7 @@ tb_openMSP430.dma_cntrl.dma_we[1:0]
 tb_openMSP430.dma_dev0.dma_rqst
 tb_openMSP430.dma_cntrl.dma_en
 tb_openMSP430.dma_cntrl.dma_ready
+tb_openMSP430.dma_cntrl.dma_resp
 @200
 -DMA - MSP
 @22
@@ -156,9 +156,14 @@ tb_openMSP430.msp_debug_0.fifo_reg_31[16:0]
 -group_end
 @200
 -
+@29
+[color] 2
+tb_openMSP430.dut.mclk
 @820
-tb_openMSP430.msp_debug_0.dma_state[255:0]
 tb_openMSP430.msp_debug_0.e_state[255:0]
+tb_openMSP430.msp_debug_0.dma_state[255:0]
+@22
+tb_openMSP430.mem_accessed[15:0]
 @28
 tb_openMSP430.dut.frontend_0.sm_violation
 tb_openMSP430.dut.frontend_0.sm_irq
@@ -166,11 +171,15 @@ tb_openMSP430.dut.frontend_0.sm_irq
 tb_openMSP430.msp_debug_0.i_state[255:0]
 @22
 tb_openMSP430.dut.frontend_0.irq_addr[15:0]
-tb_openMSP430.msp_debug_0.r1[15:0]
 @200
 -
 @22
+tb_openMSP430.msp_debug_0.r1[15:0]
 tb_openMSP430.dut.frontend_0.pc[15:0]
+tb_openMSP430.dut.frontend_0.ir[15:0]
+@200
+-
+@22
 +{tb_openMSP430.dut.frontend_0.smp1_pc[15:0]} tb_openMSP430.dut.frontend_0.current_inst_pc[15:0]
 tb_openMSP430.dut.eu_mab[15:0]
 @200
@@ -183,3 +192,8 @@ tb_openMSP430.dut.execution_unit_0.spm_control_0.omsp_spms[1].mem_violation
 tb_openMSP430.dut.execution_unit_0.spm_control_0.handling_irq
 [pattern_trace] 1
 [pattern_trace] 0
+!100000@@
+?"636C
+@23
+tb_openMSP430.dut.frontend_0.pc[15:0]
+!!
