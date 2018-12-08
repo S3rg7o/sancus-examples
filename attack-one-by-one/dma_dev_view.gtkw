@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Mon Dec  3 17:39:33 2018
+[*] Sat Dec  8 11:33:56 2018
 [*]
 [dumpfile] "/home/sergio/sancus-examples/attack-one-by-one/sancus_sim.fst"
-[dumpfile_mtime] "Mon Dec  3 17:13:21 2018"
-[dumpfile_size] 16707137
+[dumpfile_mtime] "Sat Dec  8 11:33:38 2018"
+[dumpfile_size] 17058916
 [savefile] "/home/sergio/sancus-examples/attack-one-by-one/dma_dev_view.gtkw"
-[timestart] 7495941600
+[timestart] 0
 [size] 1311 704
 [pos] -1 -1
-*-17.174809 7496225000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-31.174809 1100000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_openMSP430.
 [treeopen] tb_openMSP430.dma_dev0.
 [treeopen] tb_openMSP430.dut.
@@ -78,8 +78,6 @@ tb_openMSP430.dma_cntrl.address[14:0]
 @24
 tb_openMSP430.dma_cntrl.dev_count_saved[13:0]
 tb_openMSP430.dma_cntrl.msp_count_saved[13:0]
-@28
-tb_openMSP430.dma_cntrl.msp_count_reg_en
 @200
 -DMA - DEV
 @28
@@ -172,9 +170,8 @@ tb_openMSP430.dut.frontend_0.dma_violation
 tb_openMSP430.msp_debug_0.i_state[255:0]
 @28
 tb_openMSP430.dut.frontend_0.irq_detect
-@23
-tb_openMSP430.dut.frontend_0.irq_addr[15:0]
 @22
+tb_openMSP430.dut.frontend_0.irq_addr[15:0]
 tb_openMSP430.dut.frontend_0.irq_num[3:0]
 @200
 -

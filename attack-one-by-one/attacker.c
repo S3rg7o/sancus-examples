@@ -75,7 +75,7 @@ void asm_config_op( uint16_t num_of_words, uint16_t address, uint16_t op_code)
 		".equ CONFIG_REG     , 0x0104 \n\t"	
 		".equ DATA_REG       , 0x0106 \n\t"
 		".equ OUT_REG        , 0x0108 \n\t"
-		" ; Start reading operation   \n\t"
+		" ; Start operation           \n\t"
 		" mov %0             , &START_ADDR_REG \n\t"
 		" mov %1             , &N_WORDS_REG    \n\t" 
 		" mov %2             , &CONFIG_REG     \n\t"
