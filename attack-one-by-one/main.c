@@ -33,7 +33,7 @@ int main()
     sancus_enable(&reader);
     pr_sm_info(&reader);
 
-    /*pr_info("requesting sensor readings..");
+    pr_info("requesting sensor readings..");
     nonce_t no = 0xabcd;
     ReaderOutput out;
     get_readings(no, &out);
@@ -45,7 +45,7 @@ int main()
 
     pr_info("all done!");
     
-    */
+    
        
     
     // Getting SM's identity
