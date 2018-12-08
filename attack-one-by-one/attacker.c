@@ -1,6 +1,6 @@
 #include "attacker.h"
 #include "dma_dev_opcodes.h"
-
+#define DMA_ERROR 0x0200
 //==============================================
 // C functions for higher level control
 //==============================================
@@ -33,7 +33,8 @@ void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_
 	asm_config_op( num_of_words, start_addr, WRITE_OP);
 	while (counter < num_of_words) 
 		//wait until the end of operation and send the data
-		config_register = asm_dev_write_data(config_register, *(data_to_send+counter), WRITE_OP, &counter);
+		config_register = asm_dev_write_data(config_register, *(data_to_send+counter), &counter);
+	
 	asm("mov %0 , &CONFIG_REG "
 	   : 
 	   : "i"(RESET_REGS)); // reset register before leaving
@@ -89,7 +90,7 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 {
 	asm(" mov &CONFIG_REG , %0"    // Get config_reg_value
         : "=m"(config_register)); 
-	if (config_register == WAIT_READ_ACK)
+	if ((config_register == WAIT_READ_ACK) || (config_register & DMA_ERROR)) //XXX change with a better handling of the ERROR
 	{	
 		asm(" mov &DATA_REG   , %0 \n\t"          // Get data
 			" mov %1          , &CONFIG_REG \n\t" // Configure reading
@@ -108,7 +109,7 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 
 
 
-uint16_t asm_dev_write_data (uint16_t config_register, uint16_t in, uint16_t op_code, uint16_t *counter)
+uint16_t asm_dev_write_data (uint16_t config_register, uint16_t in, uint16_t *counter)
 {	
 	asm(" mov &CONFIG_REG , %0"    // Get config_reg_value
         : "=m"(config_register));
@@ -119,7 +120,9 @@ uint16_t asm_dev_write_data (uint16_t config_register, uint16_t in, uint16_t op_
 		: "m"(in) );		
 		*counter = *counter+1;	
     }   	
-	return config_register;
-}	
+    else if (config_register & DMA_ERROR) //XXX not elegant NOR good for availability. But it's quick and it works
+        *counter = *counter+1;	// a more elegant solution is to make the error signal arrive to the software, and have the software
+	return config_register;     // handling the error. Or change the "while (counter < n_words)" in the attacker_write with something like
+} 	                            // "while ((counter < n_words) && (~error))"
 
       

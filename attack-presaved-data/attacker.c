@@ -1,6 +1,6 @@
 #include "attacker.h"
 #include "dma_dev_opcodes.h"
-
+#define DMA_ERROR 0x0200
 //==============================================
 // C functions for higher level control
 //==============================================
@@ -90,7 +90,7 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 {
 	asm(" mov &CONFIG_REG , %0"    // Get config_reg_value
         : "=m"(config_register)); 
-	if (config_register == WAIT_READ_ACK)
+	if ((config_register == WAIT_READ_ACK) || (config_register & DMA_ERROR)) //XXX change with a better handling of the ERROR
 	{	
 		asm(" mov &DATA_REG   , %0 \n\t"          // Get data
 			" mov %1          , &CONFIG_REG \n\t" // Configure reading
@@ -120,7 +120,7 @@ uint16_t asm_dev_write_data (uint16_t config_register, uint16_t in, uint16_t *co
 		: "m"(in) );		
 		*counter = *counter+1;	
     }   	
-    else if (config_register & 0x0200) //XXX not elegant NOR good for availability. But it's quick and it works
+    else if (config_register & DMA_ERROR) //XXX not elegant NOR good for availability. But it's quick and it works
         *counter = *counter+1;	// a more elegant solution is to make the error signal arrive to the software, and have the software
 	return config_register;     // handling the error. Or change the "while (counter < n_words)" in the attacker_write with something like
 } 	                            // "while ((counter < n_words) && (~error))"
