@@ -14,7 +14,7 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 	// Read from start_addr
 	config_register = READ_OP_ACK;
 	asm_config_op( num_of_words, start_addr, READ_OP_ACK);
-	while (config_register != END_READ_ACK) 
+	while ((config_register != END_READ_ACK) && !(config_register & DMA_ERROR))
 		//wait until the end of operation and save the data
 		config_register = asm_dev_get_data(config_register, (uint16_t *)(save_data+counter), READ_OP_ACK, &counter);	
 	asm("mov %0 , &CONFIG_REG "

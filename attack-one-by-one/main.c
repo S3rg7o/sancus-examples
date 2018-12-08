@@ -46,16 +46,7 @@ int main()
     pr_info("all done!");
     
     */
-    /* // Starting memory accesses
-    pr_info("trying to illegally access mem from main.c");
-    for(i=0; i<N_DATA; i++) 
-    {
-    	mp = reader.public_start + i; 
-    	printf("[main.c] Address 0x%.4x\n",mp);
-  		stolen_data = *((uint16_t *)mp);
-		printf("[main.c] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, mp, stolen_data);
-    }*/
-    
+       
     
     // Getting SM's identity
     get_struct_val(&reader, &ts, &te, &ds, &de, &id, &vendor_id, name);
