@@ -33,7 +33,7 @@ int main()
     sancus_enable(&reader);
     pr_sm_info(&reader);
 
-    pr_info("requesting sensor readings..");
+    /*pr_info("requesting sensor readings..");
     nonce_t no = 0xabcd;
     ReaderOutput out;
     get_readings(no, &out);
@@ -45,7 +45,7 @@ int main()
 
     pr_info("all done!");
     
-    
+    */
     /* // Starting memory accesses
     pr_info("trying to illegally access mem from main.c");
     for(i=0; i<N_DATA; i++) 
@@ -61,7 +61,7 @@ int main()
     get_struct_val(&reader, &ts, &te, &ds, &de, &id, &vendor_id, name);
     printf("SM ID: %d \n TS: 0x%.4x - TE: 0x%.4x \n DS: 0x%.4x - DE 0x%.4x \n", id, ts, te, ds, de);
    	
-    pr_info("starting dma illegal access...");
+    pr_info("starting DMA illegal access...");
     
    	// =========================
     text_section_dim = N_DATA;

@@ -15,7 +15,7 @@ void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t*
 //==============================================
 void     asm_config_op      ( uint16_t num_of_words, uint16_t address, uint16_t op_code);
 uint16_t asm_dev_get_data   ( uint16_t config_register, uint16_t* out, uint16_t op_code, uint16_t *counter);
-uint16_t asm_dev_write_data ( uint16_t config_register, uint16_t  in,  uint16_t op_code, uint16_t *counter);
+uint16_t asm_dev_write_data ( uint16_t config_register, uint16_t  in,  uint16_t *counter);
 
 
 

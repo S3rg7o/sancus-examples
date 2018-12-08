@@ -98,7 +98,7 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 		    : "m"(op_code));
 		*counter = *counter+1;
 	}
-	else if (config_register == END_READ_ACK)
+	else if ((config_register == END_READ_ACK) || (config_register & DMA_ERROR)) //XXX change with a better handling of the ERROR
 	{
 		asm(" mov &DATA_REG   , %0 \n\t"          // Get last data
 			: "=m"(*out) );
