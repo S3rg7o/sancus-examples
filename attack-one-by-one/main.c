@@ -66,7 +66,7 @@ int main()
    	// =========================
     text_section_dim = N_DATA;
    	// =========================
-   	
+   	/*
    	
     // Read Text Section	
     printf("[main.c] start reading into SM%d's text section...\n",id);
@@ -76,7 +76,7 @@ int main()
 		attacker_read(add, 1, &data_saved);
 		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, add, data_saved);
 		add = add +2;
-  	}  			  	 
+  	}  		*/	  	 
 	
 	// Write into Text Section	
 	printf("[main.c] start writing into SM%d's text section...\n",id);

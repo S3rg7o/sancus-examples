@@ -90,7 +90,7 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 {
 	asm(" mov &CONFIG_REG , %0"    // Get config_reg_value
         : "=m"(config_register)); 
-	if ((config_register == WAIT_READ_ACK) || (config_register & DMA_ERROR)) //XXX change with a better handling of the ERROR
+	if (config_register == WAIT_READ_ACK)
 	{	
 		asm(" mov &DATA_REG   , %0 \n\t"          // Get data
 			" mov %1          , &CONFIG_REG \n\t" // Configure reading
@@ -98,12 +98,14 @@ uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op
 		    : "m"(op_code));
 		*counter = *counter+1;
 	}
-	else if ((config_register == END_READ_ACK) || (config_register & DMA_ERROR)) //XXX change with a better handling of the ERROR
+	else if (config_register == END_READ_ACK)
 	{
 		asm(" mov &DATA_REG   , %0 \n\t"          // Get last data
 			: "=m"(*out) );
 		*counter = *counter+1;
 	}
+	else if (config_register & DMA_ERROR) //XXX change with a better handling of the ERROR
+		*counter = *counter+1;
 	return config_register;  
 }	
 
