@@ -1,19 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sun Dec  2 17:33:41 2018
+[*] Mon Dec  3 17:39:33 2018
 [*]
 [dumpfile] "/home/sergio/sancus-examples/attack-one-by-one/sancus_sim.fst"
-[dumpfile_mtime] "Sun Dec  2 17:19:59 2018"
-[dumpfile_size] 30389273
+[dumpfile_mtime] "Mon Dec  3 17:13:21 2018"
+[dumpfile_size] 16707137
 [savefile] "/home/sergio/sancus-examples/attack-one-by-one/dma_dev_view.gtkw"
-[timestart] 7494382900
+[timestart] 7495941600
 [size] 1311 704
 [pos] -1 -1
-*-17.174809 7494525000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.174809 7496225000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_openMSP430.
 [treeopen] tb_openMSP430.dma_dev0.
 [treeopen] tb_openMSP430.dut.
 [treeopen] tb_openMSP430.dut.execution_unit_0.spm_control_0.
+[treeopen] tb_openMSP430.dut.frontend_0.
 [sst_width] 233
 [signals_width] 261
 [sst_expanded] 1
@@ -156,7 +157,7 @@ tb_openMSP430.msp_debug_0.fifo_reg_31[16:0]
 -group_end
 @200
 -
-@29
+@28
 [color] 2
 tb_openMSP430.dut.mclk
 @820
@@ -166,34 +167,20 @@ tb_openMSP430.msp_debug_0.dma_state[255:0]
 tb_openMSP430.mem_accessed[15:0]
 @28
 tb_openMSP430.dut.frontend_0.sm_violation
-tb_openMSP430.dut.frontend_0.sm_irq
+tb_openMSP430.dut.frontend_0.dma_violation
 @820
 tb_openMSP430.msp_debug_0.i_state[255:0]
-@22
+@28
+tb_openMSP430.dut.frontend_0.irq_detect
+@23
 tb_openMSP430.dut.frontend_0.irq_addr[15:0]
+@22
+tb_openMSP430.dut.frontend_0.irq_num[3:0]
 @200
 -
 @22
 tb_openMSP430.msp_debug_0.r1[15:0]
 tb_openMSP430.dut.frontend_0.pc[15:0]
 tb_openMSP430.dut.frontend_0.ir[15:0]
-@200
--
-@22
-+{tb_openMSP430.dut.frontend_0.smp1_pc[15:0]} tb_openMSP430.dut.frontend_0.current_inst_pc[15:0]
-tb_openMSP430.dut.eu_mab[15:0]
-@200
--
-@22
-tb_openMSP430.dut.frontend_0.pc_nxt[15:0]
-tb_openMSP430.dut.mem_backbone_0.fe_mdb_in[15:0]
-@28
-tb_openMSP430.dut.execution_unit_0.spm_control_0.omsp_spms[1].mem_violation
-tb_openMSP430.dut.execution_unit_0.spm_control_0.handling_irq
 [pattern_trace] 1
 [pattern_trace] 0
-!100000@@
-?"636C
-@23
-tb_openMSP430.dut.frontend_0.pc[15:0]
-!!
