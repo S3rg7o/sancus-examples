@@ -10,5 +10,6 @@ sensor_data_t SM_MMIO_ENTRY(sensor) read_sensor_data(void)
         "mov.w %1+2, r13    \n\t"
         "mov.w %1+4, r14    \n\t"
         "mov.w %1+6, r15    \n\t"
-    :: "m"(TSC_CTL), "m"(TSC_VAL):);
+    :: "m"(TSC_CTL), "i"(0x0100):);
+    //"m"(TSC_VAL):);
 }

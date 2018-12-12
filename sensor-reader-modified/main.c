@@ -13,6 +13,10 @@ int main()
     pr_sm_info(&sensor);
     sancus_enable(&reader);
     pr_sm_info(&reader);
+	
+	sensor_data_t sto_data = read_sensor_data();
+    dump_buf((uint8_t*)&sto_data, sizeof(sensor_data_t), "  Data stolen");
+
 
     pr_info("requesting sensor readings..");
     nonce_t no = 0xabcd;
