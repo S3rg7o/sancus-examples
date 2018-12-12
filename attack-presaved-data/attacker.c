@@ -1,6 +1,5 @@
 #include "attacker.h"
 #include "dma_dev_opcodes.h"
-#define DMA_ERROR 0x0200
 //==============================================
 // C functions for higher level control
 //==============================================
@@ -13,7 +12,7 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 	
 	// Read from start_addr
 	config_register = READ_OP_ACK;
-	asm_config_op( num_of_words, start_addr, READ_OP_ACK);
+	asm_config_op(num_of_words, start_addr, READ_OP_ACK);
 	while ((config_register != END_READ_ACK) && !(config_register & DMA_ERROR))
 		//wait until the end of operation and save the data
 		config_register = asm_dev_get_data(config_register, (uint16_t *)(save_data+counter), READ_OP_ACK, &counter);	
@@ -69,21 +68,32 @@ void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t*
 //==============================================
 void asm_config_op( uint16_t num_of_words, uint16_t address, uint16_t op_code)
 {
-	
-	asm(" ; Define memory addresses  \n\t"
-		".equ START_ADDR_REG , 0x0100 \n\t"
+	/*".equ START_ADDR_REG , 0x0100 \n\t"
 		".equ N_WORDS_REG    , 0x0102 \n\t"
 		".equ CONFIG_REG     , 0x0104 \n\t"	
 		".equ DATA_REG       , 0x0106 \n\t"
 		".equ OUT_REG        , 0x0108 \n\t"
-		" ; Start operation           \n\t"
+		*/
+	asm(" ; Define memory addresses  \n\t"
+		".equ START_ADDR_REG , %3    \n\t"
+		".equ N_WORDS_REG    , %4    \n\t"
+		".equ CONFIG_REG     , %5    \n\t"	
+		".equ DATA_REG       , %6    \n\t"
+		".equ OUT_REG        , %7    \n\t"
+		" ; Start operation          \n\t"
 		" mov %0             , &START_ADDR_REG \n\t"
 		" mov %1             , &N_WORDS_REG    \n\t" 
 		" mov %2             , &CONFIG_REG     \n\t"
 		:  //no outputs
 		: "m"(address), //inputs
 		  "m"(num_of_words),
-		  "m"(op_code));
+		  "m"(op_code),
+		  "m"(START_ADDRESS), //defined in dma_opcodes.h
+		  "m"(N_WORDS),       //defined in dma_opcodes.h
+		  "m"(CONFIG_REG),    //defined in dma_opcodes.h     
+		  "m"(DATA_REG),      //defined in dma_opcodes.h
+		  "m"(OUT_REG)        //defined in dma_opcodes.h
+		  );
 }
 
 uint16_t asm_dev_get_data ( uint16_t config_register, uint16_t* out, uint16_t op_code, uint16_t* counter)

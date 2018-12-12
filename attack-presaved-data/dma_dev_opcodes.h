@@ -1,3 +1,10 @@
+// MMIO Locations of device registers
+#define START_ADDR_REG 0x0100 
+#define N_WORDS_REG    0x0102 
+#define CONFIG_REG     0x0104 	
+#define DATA_REG       0x0106 
+#define OUT_REG        0x0108 
+
 // Opcodes for simple_dma_device.v
 // \============================\
 // \============================\
@@ -28,6 +35,10 @@
 #define READ_OP_ACK    0x001D  
 #define WAIT_READ_ACK  0x200D  
 #define END_READ_ACK   0xA00C  
-#define RESET_REGS     0x0020		
+#define RESET_REGS     0x0020	
+
+// Error bit is nr. 9, so if you bitwise AND the config_register and
+// DMA_ERROR you have a check of whereas the error flag is set.
+#define DMA_ERROR 0x0200	
 
 
