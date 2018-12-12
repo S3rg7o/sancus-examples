@@ -88,11 +88,11 @@ void asm_config_op( uint16_t num_of_words, uint16_t address, uint16_t op_code)
 		: "m"(address), //inputs
 		  "m"(num_of_words),
 		  "m"(op_code),
-		  "m"(START_ADDRESS), //defined in dma_dev_opcodes.h
-		  "m"(N_WORDS),       //defined in dma_dev_opcodes.h
-		  "m"(CONFIG_REG),    //defined in dma_dev_opcodes.h     
-		  "m"(DATA_REG),      //defined in dma_dev_opcodes.h
-		  "m"(OUT_REG)        //defined in dma_dev_opcodes.h
+		  "i"(START_ADDRESS), //defined in dma_dev_opcodes.h
+		  "i"(N_WORDS),       //defined in dma_dev_opcodes.h
+		  "i"(CONFIG_REG),    //defined in dma_dev_opcodes.h     
+		  "i"(DATA_REG),      //defined in dma_dev_opcodes.h
+		  "i"(OUT_REG)        //defined in dma_dev_opcodes.h
 		  );
 }
 
