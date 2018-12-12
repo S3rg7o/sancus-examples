@@ -1,5 +1,5 @@
 // MMIO Locations of device registers
-#define START_ADDRRESS 0x0100 
+#define START_ADDRESS 0x0100 
 #define N_WORDS        0x0102 
 #define CONFIG_REG     0x0104 	
 #define DATA_REG       0x0106 
