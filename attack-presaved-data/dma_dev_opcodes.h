@@ -1,15 +1,13 @@
 // MMIO Locations of device registers
-#define START_ADDR_REG 0x0100 
-#define N_WORDS_REG    0x0102 
+#define START_ADDRRESS 0x0100 
+#define N_WORDS        0x0102 
 #define CONFIG_REG     0x0104 	
 #define DATA_REG       0x0106 
 #define OUT_REG        0x0108 
 
-// Opcodes for simple_dma_device.v
-// \============================\
+
 // \============================\
 // \   Configuration register   \
-// \============================\
 // \============================\
 
 // -------------------------------------------------------------------
@@ -23,6 +21,9 @@
 // -------------------------------------------------------------------
 // | 7 | 6 |     5      |     4     |     3      |   2   | 1 |   0   |
 // -------------------------------------------------------------------
+
+// Opcodes for simple_dma_device.v
+//--------------------------------
 
 // Atomic Operations
 #define READ_OP        0x0005  
