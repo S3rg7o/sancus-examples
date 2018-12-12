@@ -21,9 +21,10 @@ script:
 
 env:
   #- TARGET=hello-world          SECURITY=64
-  - TARGET=attack-one-by-one    SECURITY=64
-  - TARGET=attack-presaved-data SECURITY=64
-  #- TARGET=memory-access-bug	SECURITY=64	
+  - TARGET=attack-one-by-one     SECURITY=64
+  - TARGET=attack-presaved-data  SECURITY=64
+  #- TARGET=sensor-reader-mod    SECURITY=64
+  #- TARGET=memory-access-bug    SECURITY=64	
   #- TARGET=hello-world          SECURITY=128
   #- TARGET=sensor-reader        SECURITY=64
   #- TARGET=arithmetic           SECURITY=64
