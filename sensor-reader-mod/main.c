@@ -13,9 +13,12 @@ int main()
     pr_sm_info(&sensor);
     sancus_enable(&reader);
     pr_sm_info(&reader);
-	
-	sensor_data_t sto_data = read_sensor_data();
-    dump_buf((uint8_t*)&sto_data, sizeof(sensor_data_t), "  Data stolen");
+    
+    sensor_data_t sto_data;
+    pr_info("calling 'read_sensor_data()' from main.c");	
+	dump_buf((uint8_t*)&sto_data, sizeof(sensor_data_t), "  Data stolen, before sensor reading:");
+	sto_data = read_sensor_data();
+    dump_buf((uint8_t*)&sto_data, sizeof(sensor_data_t), "  Data stolen: after sensor reading:");
 
 
     pr_info("requesting sensor readings..");
