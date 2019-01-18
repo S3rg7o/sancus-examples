@@ -54,7 +54,7 @@ int main()
 	attacker_write(addr, N_DATA, data_to_send);
 	// se il dato a 0x2cd(=717 decimale) dato è 0, è la prova che il dma controller non è ancora arrivato a scriverlo, ma che il controllo del sofware è già avanzato.
     val = *addr_pointer;
-    printf("Val after attack_write: %d \n", val);
+    printf("Value at 0x20a right after attack_write: %d \n", val);
 	 
 	printf("[main.c] start reading written data with DMA\n");
     attacker_read(addr, N_DATA, data_saved);
