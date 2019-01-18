@@ -41,13 +41,16 @@ int main()
 	for (i=0; i< text_section_dim; i++)
 		data_to_send[i] = i;		
 	
-	// Write into Text Section	
+	/*
+	// Little test, to see if the access are corretly handled.
+	// Test passed, that's why it's commented
 	test_val = 7;
 	attacker_write(0x0202, 1, &test_val);
 	printf("[main.c] start write op. to test IRQ\n");
 	addr_pointer = (uint16_t *)0x0202;
 	val = *addr_pointer;
-    printf("Value: %d \n", val);
+    printf("Value: %d \n", val);*/
+    
     
 	addr = 0x020a;
 	addr_pointer = (uint16_t *)0x024e;
@@ -56,6 +59,14 @@ int main()
     val = *addr_pointer;
     printf("Value at 0x20a right after attack_write: %d \n", val);
 	 
+	 // dummy for
+    for (i=0; i<10; i++)
+    { 
+      ; // NOP
+     }
+    val = *addr_pointer;
+     printf("Value at 0x20a after a while: %d \n", val);
+	  
 	printf("[main.c] start reading written data with DMA\n");
     attacker_read(addr, N_DATA, data_saved);
    
