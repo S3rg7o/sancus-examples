@@ -26,8 +26,7 @@ sim: $(TARGET)
 	echo "\n \n \t \t IRQ Read/Write \n" 
 	date +"%T"
 	unbuffer $(SANCUS_SIM) $(SIMFLAGS) $< | tee sim.out
-	./unwrap.py $(READER_SM_KEY) sim.out
-	date +"%T"
+	
 	
 clean:
 	$(RM) $(TARGET) $(TARGET_NO_MAC) $(OBJECTS)
