@@ -4,7 +4,7 @@
 cd ~/sancus-core/core
 
 cd bench/verilog
-sudo cp dma_tasks.v msp_debug.v tb_openMSP430.v /usr/local/share/sancus/rtl/sim
+sudo cp dma_tasks.v msp_debug.v tb_openMSP430.v registers.v /usr/local/share/sancus/rtl/sim
 
 cd ../../rtl/verilog 
 sudo cp *.v /usr/local/share/sancus/rtl
