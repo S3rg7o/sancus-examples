@@ -4,7 +4,7 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "attacker.h"
-#define  N_DATA 35
+#define  N_DATA 70
 
 int main()
 {
@@ -55,7 +55,7 @@ int main()
 	addr = 0x020a;
 	addr_pointer = (uint16_t *)0x024e;
 	attacker_write(addr, N_DATA, data_to_send);
-	// se il dato a 0x2cd(=717 decimale) dato è 0, è la prova che il dma controller non è ancora arrivato a scriverlo, ma che il controllo del sofware è già avanzato.
+	// se il dato a 0x024e dato è 0, è la prova che il dma controller non è ancora arrivato a scriverlo, ma che il controllo del sofware è già avanzato.
     val = *addr_pointer;
     printf("Value at 0x20a right after attack_write: %d \n", val);
 	 
@@ -65,7 +65,7 @@ int main()
       ; // NOP
      }
     val = *addr_pointer;
-     printf("Value at 0x20a after a while: %d \n", val);
+    printf("Value at 0x20a after a while: %d \n", val);
 	  
 	printf("[main.c] start reading written data with DMA\n");
     attacker_read(addr, N_DATA, data_saved);
