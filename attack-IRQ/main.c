@@ -56,6 +56,10 @@ int main()
 	addr_pointer = (uint16_t *)0x024e;
 	attacker_write(addr, N_DATA, data_to_send);
 	// se il dato a 0x024e dato è 0, è la prova che il dma controller non è ancora arrivato a scriverlo, ma che il controllo del sofware è già avanzato.
+    for (i=0; i<10; i++)
+    { 
+      ; // NOP
+     }
     val = *addr_pointer;
     printf("Value at 0x20a right after attack_write: %d \n", val);
 	 
