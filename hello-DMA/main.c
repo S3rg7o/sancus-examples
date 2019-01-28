@@ -45,8 +45,6 @@ int main()
     pr_sm_info(&hello);
 	hello_init();
 	
-	printf("Trying to directly access the 'hello_secret' from unprotected code\n");
-	printf("Hello secret is: 0x%.4x \n",hello_secret);
 	
     hello_greet();
     hello_disable();

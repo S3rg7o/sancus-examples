@@ -3,7 +3,7 @@
 #include <sancus/sm_support.h>
 #include <sancus_support/sm_io.h>
 #include "reader.h"
-#include "attacker.h"
+#include "dma.h"
 #define  N_DATA 10
 
 int main()
