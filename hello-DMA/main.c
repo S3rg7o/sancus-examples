@@ -30,7 +30,7 @@ void SM_ENTRY(hello) hello_greet(void)
     hello_init();
     pr_info2("Hi from SM with ID %d, called by %d\n",
         sancus_get_self_id(), sancus_get_caller_id());
-    pr_info2("My secret is: %.4x at: %.4x \n",*ptr_hello_secret, ptr_hello_secret);	
+    pr_info2("Internally accessing to my secret: %.4x at addr.: %.4x \n",*ptr_hello_secret, ptr_hello_secret);	
 }
 
 void SM_ENTRY(hello) hello_disable(void)
