@@ -11,12 +11,15 @@ DECLARE_SM(hello, 0x1234);
 #define HELLO_SECRET_CST    0xbeef
 
 int       SM_DATA(hello) hello_secret;
+int *     SM_DATA(hello) ptr_hello_secret;
 int const SM_DATA(hello) hello_const = HELLO_SECRET_CST;
 
 void SM_FUNC(hello) hello_init(void)
 {
     /* Confidential loading guarantees secrecy of constant in text section. */
     hello_secret = hello_const;
+    ptr_hello_secret = (int*)(hello.secret_start+7);
+    *ptr_hello_secret = 0xC1A0;
     ASSERT(hello_secret == HELLO_SECRET_CST);
 }
 
@@ -43,10 +46,18 @@ int main()
 
     sancus_enable_wrapped(&hello, SM_GET_WRAP_NONCE(hello), SM_GET_WRAP_TAG(hello));
     pr_sm_info(&hello);
-	hello_init();
-	
 	
     hello_greet();
+	
+	printf("Hello Data section is: 0x%.4x \n",hello.secret_start);
+	printf("Trying to directly access the hello_secret from unprotected code");
+	printf("Hello secret is: %d \n",*ptr_hello_secret);
+	
+	
+	/* ======= USING DMA ======== */
+	printf("Trying to access the hello_secret from unprotected code, through DMA");
+
+
     hello_disable();
 
     // should never reach here
