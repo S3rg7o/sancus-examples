@@ -9,28 +9,25 @@ void exit_success(void);
 /* ======== HELLO WORLD SM ======== */
 
 DECLARE_SM(hello, 0x1234);
-#define HELLO_SECRET_CST    0xbeef
+#define HELLO_SECRET_CST    0xC1A0
 
-int       SM_DATA(hello) hello_secret;
-int       SM_DATA(hello) *ptr_hello_secret;
-int const SM_DATA(hello) hello_const = HELLO_SECRET_CST;
+int       SM_DATA(hello) *hello_secret;
+int const SM_DATA(hello)  hello_const = HELLO_SECRET_CST;
 
 void SM_FUNC(hello) hello_init(void)
 {
     /* Confidential loading guarantees secrecy of constant in text section. */
     
-    hello_secret = hello_const;
-    ptr_hello_secret = (int*)(hello.secret_start+7);
-    ASSERT(hello_secret == HELLO_SECRET_CST);
-    *ptr_hello_secret = 0xC1A0;
+    hello_secret = (int*)(hello.secret_start+7);
+    *hello_secret = hello_const;
+    ASSERT(*hello_secret == HELLO_SECRET_CST);
 }
 
 void SM_ENTRY(hello) hello_greet(void)
 {
     hello_init();
-    pr_info2("Hi from SM with ID %d, called by %d\n",
-        sancus_get_self_id(), sancus_get_caller_id());
-    pr_info2("Internally accessing to my secret: %.4x at addr.: %.4x \n",*ptr_hello_secret, ptr_hello_secret);	
+    pr_info2("Hi from SM with ID %d, called by %d\n", sancus_get_self_id(), sancus_get_caller_id());
+    pr_info2("Internally accessing to my secret: 0x%.4x at addr.: 0x%.4x \n",*hello_secret, hello_secret);	
 }
 
 void SM_ENTRY(hello) hello_disable(void)
@@ -60,7 +57,7 @@ int main()
 	start_dma = (uint16_t)(hello.secret_start+7);
 	puts("DMA illegal access to the hello_secret from unprotected code \n"); 
 	dma_read(start_dma, 1, &disclosed_secret);
-	pr_info2("Hello secret is: %.4x at: %.4x \n", disclosed_secret, start_dma);
+	pr_info2("Hello secret is: 0x%.4x at addr.: 0x%.4x \n", disclosed_secret, start_dma);
 	/* ========================== */
 		
 	
