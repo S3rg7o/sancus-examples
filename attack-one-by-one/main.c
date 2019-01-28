@@ -64,7 +64,7 @@ int main()
     add = ts;  	
     for (i=0; i < text_section_dim; i++)
 	{
-		attacker_read(add, 1, &data_saved);
+		dma_read(add, 1, &data_saved);
 		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, add, data_saved);
 		add = add +2;
   	}  			  	 
@@ -74,7 +74,7 @@ int main()
 	add = ts;
 	for (i=0; i < text_section_dim; i++)
 	{
-		attacker_write(add, 1, &i);
+		dma_write(add, 1, &i);
 		add = add+2;
 	}
 	
@@ -83,7 +83,7 @@ int main()
     add = ts; 
     for (i=0; i < text_section_dim; i++)
 	{
-		attacker_read(add, 1, &data_saved);
+		dma_read(add, 1, &data_saved);
 		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, add, data_saved);
 		add = add +2;
   	}  	

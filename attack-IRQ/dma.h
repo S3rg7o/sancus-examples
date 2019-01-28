@@ -7,8 +7,8 @@
 // C functions for higher level control
 //==============================================
 void mmio_config(uint16_t num_words, uint16_t read_address, uint16_t write_address);
-void attacker_read (uint16_t start_addr, uint16_t num_of_words, uint16_t * save_data);
-void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send);
+void dma_read (uint16_t start_addr, uint16_t num_of_words, uint16_t * save_data);
+void dma_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send);
 void get_struct_val(struct SancusModule* module_address, uint16_t* ts, uint16_t* te, uint16_t* ds, uint16_t* de, uint16_t* sm_id, uint16_t* vendor_id, char* name);
 
 

@@ -70,7 +70,7 @@ int main()
 	}
 	else {
 		printf("[main.c] start reading into SM%d's text section...\n",id);
-    	attacker_read(ts, N_DATA, data_saved);
+    	dma_read(ts, N_DATA, data_saved);
   		}
 
 	print_add = ts;  		  	  		
@@ -84,10 +84,10 @@ int main()
 	printf("[main.c] start writing into SM%d's text section...\n",id);
 	/*for (i = 0; i<N_DATA; i++)
 		printf("[main.c] data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);*/
-	attacker_write(ts, N_DATA, data_to_send);
+	dma_write(ts, N_DATA, data_to_send);
 	
 	printf("[main.c] start reading into SM%d's text section after having written...\n",id);
-    attacker_read(ts, N_DATA, data_saved);
+    dma_read(ts, N_DATA, data_saved);
     
     print_add = ts; 
     for (i = 0; i< text_section_dim; i++)
@@ -112,7 +112,7 @@ int main()
 	}
 	else {
 		printf("[main.c] start reading into SM%d's data section...\n",id);
-    	attacker_read(ds, N_DATA, data_saved);
+    	dma_read(ds, N_DATA, data_saved);
   		}
 
 	print_add = ds;  		  	  		
@@ -125,10 +125,10 @@ int main()
 	printf("[main.c] start writing into SM%d's data section...\n",id);
 	for (i = 0; i<N_DATA; i++)
 		printf("data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);
-	attacker_write(ds, N_DATA, data_to_send);
+	dma_write(ds, N_DATA, data_to_send);
 	
 	printf("[main.c] start reading into SM%d's data section after having written...\n",id);
-    attacker_read(ds, N_DATA, data_saved);
+    dma_read(ds, N_DATA, data_saved);
     
     print_add = ds; 
     for (i = 0; i<N_DATA; i++)

@@ -1,5 +1,5 @@
-#include "attacker.h"
-#include "dma_dev_opcodes.h"
+#include "dma.h"
+#include "dma_driver_opcodes.h"
 //==============================================
 // C functions for higher level control
 //==============================================
@@ -11,7 +11,7 @@ void mmio_config(uint16_t num_words, uint16_t read_address, uint16_t write_addre
 	asm_config_mmio_op(num_words, read_address, write_address, op_code);
 }
 
-void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_data)
+void dma_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_data)
 {
 	uint16_t config_register;
 	uint16_t counter = 0;
@@ -32,7 +32,7 @@ void attacker_read(uint16_t start_addr, uint16_t num_of_words, uint16_t * save_d
 }
 
 
-void attacker_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send)
+void dma_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send)
 {
 	uint16_t config_register;
 	uint16_t counter = 0;	
@@ -158,7 +158,7 @@ uint16_t asm_dev_write_data (uint16_t config_register, uint16_t in, uint16_t *co
     }   	
     else if (config_register & DMA_ERROR) //XXX not elegant NOR good for availability. But it's quick and it works
         *counter = *counter+1;	// a more elegant solution is to make the error signal arrive to the software, and have the software
-	return config_register;     // handling the error. Or change the "while (counter < n_words)" in the attacker_write with something like
+	return config_register;     // handling the error. Or change the "while (counter < n_words)" in the dma_write with something like
 } 	                            // "while ((counter < n_words) && (~error))"
 
       

@@ -1,8 +1,5 @@
-// Opcodes for simple_dma_device.v
-// \============================\
 // \============================\
 // \   Configuration register   \
-// \============================\
 // \============================\
 
 // -------------------------------------------------------------------
@@ -16,6 +13,13 @@
 // -------------------------------------------------------------------
 // | 7 | 6 |     5      |     4     |     3      |   2   | 1 |   0   |
 // -------------------------------------------------------------------
+
+// Opcodes for simple_dma_device.v
+//--------------------------------
+
+//MMIO Operations
+#define MMIO_READ   0x0003 //solely set the rd_wr to 1 and triggers the start
+#define MMIO_WRITE  0x0001 //solely set the rd_wr to 0 and triggers the start
 
 // Atomic Operations
 #define READ_OP        0x0005  
