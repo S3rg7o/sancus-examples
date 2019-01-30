@@ -4,7 +4,7 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "dma.h"
-#define  N_DATA 17
+#define  N_DATA 35
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
 	uint16_t  val;
     uint16_t  *addr_pointer2;
 	uint16_t  *data_saved;
-    uint16_t  i;
+    uint16_t  i,j;
     uint16_t  *data_to_send;
     // variable for trying to perform illegal access to mem from main.c
     uint16_t  stolen_data = -2; // initialize with unequivocal content
@@ -48,8 +48,10 @@ int main()
 	// ======================================
 	mmio_config(N_DATA, addr, addr2);
 	
+	j=0;
 	for(i=0; i<7; i++)
 	{
+		j = j+1;
 		printf("NOP during DMA MMIO op.\n");	
 	}	
 		
@@ -59,7 +61,7 @@ int main()
 	// this stops the software
 	// =================================
 	
-	printf("Ora uso le normali funzioni\n");
+	/*printf("Ora uso le normali funzioni\n");
 	
 	dma_write(addr, N_DATA, data_to_send);
 	// se il dato a 0x024e dato è 0, è la prova che il dma controller non è ancora arrivato a scriverlo, ma che il controllo del sofware è già avanzato.
@@ -77,7 +79,7 @@ int main()
   	{
   		printf("[main->attacker] Data nr.%d at addr. 0x%.4x \t 0x%.4x \n",i, addr, *(data_saved+i) );  
     	addr = addr + 2;  
-    }	
+    }	*/
     
     
     EXIT();

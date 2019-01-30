@@ -14,7 +14,7 @@ DECLARE_SM(hello, 0x1234);
 int       SM_DATA(hello) *hello_secret;
 int const SM_DATA(hello)  hello_const = HELLO_SECRET_CST;
 
-void SM_FUNC(hello) hello_init(void)
+void SM_ENTRY(hello) hello_init(void)
 {
     /* Confidential loading guarantees secrecy of constant in text section. */
     
@@ -25,7 +25,7 @@ void SM_FUNC(hello) hello_init(void)
 
 void SM_ENTRY(hello) hello_greet(void)
 {
-    hello_init();
+    //hello_init();
     pr_info2("Hi from SM with ID %d, called by %d\n", sancus_get_self_id(), sancus_get_caller_id());
     pr_info2("Internally accessing to my secret: 0x%.4x at addr.: 0x%.4x \n",*hello_secret, hello_secret);	
 }
@@ -43,6 +43,7 @@ int main()
 {
 	uint16_t start_dma;
 	uint16_t disclosed_secret;
+	uint16_t data_to_send;
 	
     msp430_io_init();
     ASSERT((*hello_const_pt) != HELLO_SECRET_CST);
@@ -50,17 +51,28 @@ int main()
     sancus_enable_wrapped(&hello, SM_GET_WRAP_NONCE(hello), SM_GET_WRAP_TAG(hello));
     pr_sm_info(&hello);
 	
+	hello_init();
     hello_greet();
 
 	
-	/* ======= USING DMA ======== */
+	/* ======= USING DMA - READ ======== */
 	start_dma = (uint16_t)(hello.secret_start+7);
 	puts("DMA illegal access to the hello_secret from unprotected code \n"); 
 	dma_read(start_dma, 1, &disclosed_secret);
 	pr_info2("Hello secret is: 0x%.4x at addr.: 0x%.4x \n", disclosed_secret, start_dma);
 	/* ========================== */
-		
+
+	hello_greet();
 	
+	/* ======= USING DMA - WRITE ======= */
+	start_dma = (uint16_t)(hello.secret_start+7);
+	data_to_send = 0xBEEF;
+	puts("DMA injecting external data into SM data section \n"); 
+	//void dma_write(uint16_t start_addr, uint16_t num_of_words, uint16_t * data_to_send);
+	dma_write(start_dma, 1, &data_to_send);
+	/* ========================== */
+	
+	hello_greet();
 	
     hello_disable();
     // should never reach here

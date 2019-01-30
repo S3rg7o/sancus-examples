@@ -22,8 +22,8 @@
 #define MMIO_WRITE  0x0001 //solely set the rd_wr to 0 and triggers the start
 
 // Atomic Operations
-#define READ_OP        0x0005  
-#define END_READ       0x8004  
+#define READ_OP        0x0015  
+#define END_READ       0x8014  
 
 // Non-Atomic Operations, need main.c acknowledge. One data by one
 #define WRITE_OP       0x0009

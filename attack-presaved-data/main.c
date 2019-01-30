@@ -4,7 +4,7 @@
 #include <sancus_support/sm_io.h>
 #include "reader.h"
 #include "dma.h"
-#define  N_DATA 35
+#define  N_DATA 37
 
 int main()
 {
@@ -60,7 +60,6 @@ int main()
     	
     // Initialize data to be written
 	for (i=0; i< text_section_dim; i++)
-		//data_to_send[i] = (i%2 == 0) ? 0xF00D : 0xF1D0;
 		data_to_send[i] = i;		
 
 	// Read Text section 
@@ -69,9 +68,9 @@ int main()
 		EXIT();
 	}
 	else {
-		printf("[main.c] start reading into SM%d's text section...\n",id);
+		pr_info1("start reading into SM%d's text section...\n",id);
     	dma_read(ts, N_DATA, data_saved);
-  		}
+  	}
 
 	print_add = ts;  		  	  		
    	for (i = 0; i< text_section_dim; i++)
@@ -81,7 +80,7 @@ int main()
 	}
 	
 	// Write into Text Section	
-	printf("[main.c] start writing into SM%d's text section...\n",id);
+	pr_info1("[main.c] start writing into SM%d's text section...\n",id);
 	/*for (i = 0; i<N_DATA; i++)
 		printf("[main.c] data to write nr.%d: 0x%.4x \n",i,data_to_send[i]);*/
 	dma_write(ts, N_DATA, data_to_send);
