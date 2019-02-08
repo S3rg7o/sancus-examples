@@ -1,4 +1,4 @@
-#Exploitation of Naive DMA Support
+# Exploitation of Naive DMA Support
 A simple example of how security guarantees are invalidated when DMA support is naively implemented on Sancus 2.0. If no memory access control is enforced on the DMA bus, it can access to the whole system memory, including protected sections. An attacker can exploit this vulnerability to leak secret data or inject malicious code into the module. \\ \autoref{lst:hello_sm} shows a simple Sancus software module \textit{"Hello"}: the macros \texttt{SM\_ENTRY(name)}, \texttt{SM\_FUNC(name)} and \texttt{SM\_DATA(name)} are respectively used to annotate modules entry points, functions or data. In brief, they take as input the name of the intended module, and attach some attributes\footnote{The attribute mechanism allows a developer to attach extra information (metadata) to language entities with a generalized syntax, instead of introducing new syntactic constructs or keywords for each feature. This information is intended to be used by the compiler, improving the quality of diagnostics produced by an implementation or specifying platform-specific behaviour~\cite{c_attributes}.} to the entity they are associated with (data, function or entry point), so that the Sancus compiler can include those in the module protected sections. \texttt{DECLARE\_SM(name, vendor\_id)}, instead, is used to declare a Sancus module. 
 
 ```
@@ -32,7 +32,7 @@ void SM_ENTRY(hello) hello_disable(void)
 
 
 
-##Leak Secret Data
+## Leak Secret Data
 In the example provided the value of a secret constant is stored in the data section, at a known offset, for the sake of simplicity: in this way the DMA attack is carried in one shot. Though in a real-case scenario it's unlikely for the attacker to know the exactly location of the secret data, it is reasonable to assume that some analysis are carried on over the module to be broken, thus the example it's still valid. Finally, it is to be noticed that the values of start and end addresses of SMs text and data sections can be read from unprotected code.\\
 
 ```
@@ -108,7 +108,7 @@ void dma_violation_isr(void)
 }
 ```
 
-##Inject Malicious Data or Code
+## Inject Malicious Data or Code
 Another possible attack implies the injection of malicious code or data into SMs protected sections. The SM considered is still the \textit{"Hello"} module from the previous example (\autoref{lst:hello_sm}). The only difference is that the SM \texttt{hello\_init()} function is now explicitly called only once right after the protection mechanism has been enabled, and not every time the \texttt{hello\_greet()} is entered. To this extent, its attribute is modified from SM\_FUNC to SM\_ENTRY. This is necessary, in order to prevent that the injected malicious message is simply overwritten before being printed by the greeting function. \autoref{lst:main_attack_write} shows the main.c, as framework for the attack.
 
 ```
