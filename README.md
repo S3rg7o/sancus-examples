@@ -14,6 +14,7 @@ The following programs showcase the security properties offered by a Sancus proc
 | Remote attestation        | [sensor-reader](sensor-reader) | Compute MAC over fresh challenge (nonce).                       |
 | Secure communication      | [sensor-reader](sensor-reader) | Authenticated encryption with associated data primitive.        |
 | Confidential deployment   | [hello-world](hello-world)     | SM text section is transparently encrypted at build time.       |
+|-------------------------------------------------------------------------------------------------------------------------------|
 | DMA exploitation          | [hello-DMA](hello-DMA) | SM private sections are read/written when direct DMA interface is provided.      |
 | MMIO DMA operation        | [MMIO_DMA_op](MMIO-DMA-operation) | Shows DMA intra-memory transfer that fully unburdens CPU during the whole operation.      |
 
